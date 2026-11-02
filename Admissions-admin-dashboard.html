@@ -1,0 +1,140 @@
+<!doctype html><html lang="sw"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Msimamizi wa Udahili – Dersane</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&display=swap">
+<style>
+:root{--navy:#141b5e;--navy2:#232f8c;--gold:#e3bf4a;--bg:#f2f3f8;--sf:#fff;--fg:#1a1c2c;--mu:#5b6074;--ln:#e3e5ee;--so:#eceefa;--ok:#0c7a52;--okb:#dff1ea;--er:#b3261e;--erb:#fbe4e2;--wa:#7a5a00;--wab:#fbf0cb;--af:#fff;--d:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;--b:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1030;--sf:#151a45;--fg:#eceefc;--mu:#a3a9d1;--ln:#2a3070;--so:#1d2358;--ok:#62d69c;--okb:#12382b;--er:#ff8f86;--erb:#3a1d1b;--wa:#f0c85a;--wab:#3a3012;--navy:#0a0e3a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0c1030;--sf:#151a45;--fg:#eceefc;--mu:#a3a9d1;--ln:#2a3070;--so:#1d2358;--ok:#62d69c;--okb:#12382b;--er:#ff8f86;--erb:#3a1d1b;--wa:#f0c85a;--wab:#3a3012;--navy:#0a0e3a;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 var(--b)}button{font:inherit;color:inherit;cursor:pointer}:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.app{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+aside{background:linear-gradient(170deg,var(--navy),var(--navy2));color:#fff;padding:26px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:24px}
+.brand{padding:0 10px}.brand b{font:700 24px var(--d);display:block;letter-spacing:.02em}.brand small{letter-spacing:.14em;font-size:11px;color:var(--gold);font-weight:700}
+nav{display:grid;gap:4px}nav button{all:unset;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-radius:10px;cursor:pointer;font-weight:600;color:rgba(255,255,255,.82)}
+nav button:hover{background:rgba(255,255,255,.1)}nav button[aria-pressed=true]{background:#fff;color:var(--navy2)}nav button:focus-visible{outline:2px solid var(--gold)}
+nav b{font-size:12px;padding:2px 9px;border-radius:99px;background:rgba(255,255,255,.18)}nav button[aria-pressed=true] b{background:var(--gold);color:#1a1c2c}
+.who{margin-top:auto;display:flex;gap:10px;align-items:center;padding:0 8px;font-size:13px}.who i{font-style:normal;width:34px;height:34px;border-radius:50%;background:#fff;color:var(--navy);display:grid;place-items:center;font-weight:800}
+main{padding:28px clamp(16px,3vw,40px) 48px;max-width:1260px;width:100%}
+.top{margin-bottom:22px}h1{font:700 clamp(26px,3.4vw,34px)/1.1 var(--d);margin:0}.top p{margin:6px 0 0;color:var(--mu)}
+.card{background:var(--sf);border-radius:16px;padding:18px 20px;box-shadow:0 1px 6px rgba(20,27,94,.08)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.k .l{color:var(--mu);font-weight:600;font-size:13px}.k .v{font:700 36px/1.1 var(--d);margin-top:6px}.k .s{font-size:13px;color:var(--mu);margin-top:4px}
+.k.hi{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff}.k.hi .l,.k.hi .s{color:rgba(255,255,255,.85)}.k.hi .v{color:var(--gold);font-size:46px}
+.mid{margin-bottom:14px}h2{font:700 17px var(--d);margin:0 0 14px}
+.cr{margin-bottom:14px}.cr div{display:flex;justify-content:space-between;font-weight:600;margin-bottom:6px;font-size:14px}.seg{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--so)}
+.ring{display:flex;align-items:center;gap:20px;flex-wrap:wrap}.ring svg{width:140px;height:140px;flex:none}.ring text{font-family:var(--d);fill:var(--fg)}
+.lg{display:grid;gap:8px;font-size:14px}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+input,select,textarea{font:inherit;color:var(--fg);background:var(--sf);border:1.5px solid var(--ln);border-radius:10px;padding:10px 12px}.tools input{flex:1 1 240px;min-width:0}
+.tw{overflow-x:auto;padding:0}table{border-collapse:collapse;width:100%;min-width:820px}
+th{text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);padding:13px 16px;border-bottom:1px solid var(--ln)}
+td{padding:12px 16px;border-top:1px solid var(--ln)}tbody tr{cursor:pointer}tbody tr:hover{background:var(--so)}
+.p{display:flex;align-items:center;gap:12px}.av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+small{color:var(--mu);display:block;font-size:12.5px}
+.tag{display:inline-block;font-weight:700;letter-spacing:.08em;font-size:11.5px;padding:4px 11px;border-radius:99px}.tag.a{background:var(--okb);color:var(--ok)}.tag.r{background:var(--erb);color:var(--er)}.tag.p{background:var(--wab);color:var(--wa)}
+.qa{display:flex;gap:6px;justify-content:flex-end}.ib{width:36px;height:36px;border-radius:10px;border:1.5px solid var(--ln);background:var(--sf);font-weight:800}.ib.y{color:var(--ok)}.ib.n{color:var(--er)}.ib:hover{background:var(--so)}
+.empty{padding:36px;text-align:center;color:var(--mu)}
+.ov{position:fixed;inset:0;background:rgba(8,10,40,.55);z-index:20}
+.dr{position:fixed;top:0;right:0;bottom:0;width:min(500px,100%);background:var(--sf);z-index:21;display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(0,0,0,.3);animation:in .22s ease-out}@keyframes in{from{transform:translateX(30px);opacity:0}}
+.dh{padding:calc(20px + env(safe-area-inset-top,0px)) 22px 16px;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;display:flex;justify-content:space-between;gap:12px;align-items:start}
+.dh h3{font:700 22px/1.2 var(--d);margin:8px 0 2px}.dh small{color:rgba(255,255,255,.8)}.dh .ib{background:rgba(255,255,255,.15);border-color:transparent;color:#fff}
+.db{padding:6px 22px 14px;overflow:auto;flex:1}.db h4{font:700 12px var(--b);letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin:18px 0 8px}.db dl{margin:0;display:grid;grid-template-columns:150px minmax(0,1fr);gap:6px 12px}.db dt{color:var(--mu)}.db dd{margin:0;overflow-wrap:anywhere;font-weight:500}
+.df{padding:16px 22px calc(16px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--ln);display:grid;gap:10px}.df label{font-weight:600;font-size:13px}.df small{margin-top:-4px}
+.row{display:flex;gap:10px}.btn{flex:1;padding:12px 16px;border-radius:10px;font-weight:700;border:1.5px solid var(--navy2);background:var(--navy2);color:#fff}
+.btn.g{background:transparent;color:var(--fg);border-color:var(--ln)}.btn.d{background:var(--er);border-color:var(--er);color:var(--sf)}.btn.o{background:var(--ok);border-color:var(--ok);color:var(--sf)}.btn.rj{background:transparent;color:var(--er);border-color:var(--er)}
+textarea{width:100%;min-height:76px;resize:vertical}.pv{border:1.5px dashed var(--ln);border-radius:12px;padding:12px 14px}.pv .lbl{font-size:11px;letter-spacing:.1em;color:var(--mu);font-weight:700;text-transform:uppercase;margin-top:8px}.pv .vl{font-weight:700}.pv .bg{font:700 22px var(--d);letter-spacing:.04em}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 20px;border-radius:99px;font-weight:600;z-index:30;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+[hidden]{display:none!important}
+@media(max-width:900px){.app{grid-template-columns:minmax(0,1fr)}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:14px 16px;gap:10px 18px}nav{display:flex;overflow-x:auto;width:100%}nav button{white-space:nowrap;gap:8px}.who{display:none}.kpis{grid-template-columns:1fr 1fr}}
+@keyframes rowin{from{opacity:0;transform:translateY(8px)}}@keyframes draw{from{stroke-dasharray:0 400}}@keyframes fade{from{opacity:0}}@keyframes tin{from{opacity:0;transform:translate(-50%,16px)}}
+tbody tr{animation:rowin .32s ease-out backwards;animation-delay:calc(var(--i,0)*35ms);transition:background .15s}
+.k{transition:transform .2s,box-shadow .2s}.k:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(20,27,94,.18)}
+nav button{transition:background .2s,color .2s}.ib,.btn{transition:transform .12s,background .15s}.ib:active,.btn:active{transform:scale(.94)}.ib.y:hover{background:var(--okb)}.ib.n:hover{background:var(--erb)}
+.ring .arc{animation:draw .9s ease-out}.ring text{animation:fade .9s ease-out}.ov{animation:fade .2s}.toast{animation:tin .3s ease-out}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+.ww{position:fixed;inset:0;z-index:25;display:grid;place-items:center;background:rgba(8,10,40,.55);padding:16px}.ww .bx{background:var(--sf);color:var(--fg);border-radius:16px;padding:22px;width:min(440px,100%);box-shadow:0 20px 50px rgba(0,0,0,.35)}.ww h3{font:700 20px var(--d);margin:0 0 6px}.ww p{color:var(--mu);margin:0 0 16px}.ww .st{display:inline-block;font-weight:700;padding:4px 12px;border-radius:99px;margin-bottom:14px}.ww .st.o{background:var(--okb);color:var(--ok)}.ww .st.c{background:var(--erb);color:var(--er)}.ww .btn.d{background:var(--er);border-color:var(--er)}.ww .btn.g{background:transparent;color:var(--fg);border-color:var(--ln)}nav button.wn2{margin-top:6px;border-radius:10px}.ww input{width:100%;margin:0 0 14px}nav button.wn{margin-top:10px;border-top:1px solid rgba(255,255,255,.18);border-radius:0 0 10px 10px;padding-top:15px}
+</style></head><body>
+<div class="app"><aside><div class="brand"><b>DERSANE</b><small>MSIMAMIZI WA UDAHILI</small></div><nav id="nav" aria-label="Chuja maombi"></nav><div class="who"><i>AD</i><span>Ofisi ya udahili<br>Mwaka wa masomo 2026/2027</span><a href="admin-logout.php" style="margin-left:auto;color:#fff;font-size:13px">Toka</a></div></aside>
+<main><div class="top"><h1>Maombi</h1><p>Pitia kila mwombaji, kisha mkubali au mkatae. Maamuzi yanaonekana kwenye akaunti ya mwombaji mara moja.</p></div>
+<section class="kpis" id="kpis" aria-label="Muhtasari"></section>
+<section class="mid"><div class="card"><h2>Maendeleo ya mapitio</h2><div class="ring" id="rg"></div></div></section>
+<div class="tools"><input id="q" type="search" placeholder="Tafuta jina, mkoa au barua pepe" aria-label="Tafuta waombaji"><select id="lf" aria-label="Chuja kwa mkoa"><option value="">Mikoa yote</option></select></div>
+<div class="card tw"><table><thead><tr><th>Mwombaji</th><th>Mkoa</th><th>Chuo</th><th>Tarehe ya kutuma</th><th>Hali</th><th></th></tr></thead><tbody id="tb"></tbody></table><div class="empty" id="em" hidden>Hakuna maombi yanayolingana. Badilisha utafutaji au kichujio.</div></div>
+</main></div><div id="dw"></div><div id="ww"></div><div class="toast" id="ts" role="status" hidden></div>
+<script>
+(function(){
+var N=202611890,D=[],K="dersane-admin-v1";
+var LB={p:"INASUBIRI",a:"AMEKUBALIWA",r:"AMEKATALIWA"},NM={all:"Maombi yote",p:"Yanasubiri mapitio",a:"Waliokubaliwa",r:"Waliokataliwa"},CL={a:"var(--ok)",p:"var(--gold)",r:"var(--er)"},MON=["Jan","Feb","Mac","Apr","Mei","Jun","Jul","Ago","Sep","Okt","Nov","Des"];
+var W=null,f="all",lastFocus,$=function(i){return document.getElementById(i)};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function cnt(s){return D.filter(function(d){return!s||d.st===s}).length}
+function fd(s){var d=new Date(s);return d.getDate()+" "+MON[d.getMonth()]+" "+d.getFullYear()}
+function age(s){var d=new Date(s),n=new Date(2026,9,18),a=n.getFullYear()-d.getFullYear();if(n<new Date(n.getFullYear(),d.getMonth(),d.getDate()))a--;return a}
+function save(){var o={};D.forEach(function(d){o[d.id]={st:d.st,why:d.why,adm:d.adm,house:d.house}});try{localStorage.setItem(K,JSON.stringify(o))}catch(e){}}
+function toast(m){var t=$("ts");t.textContent=m;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(function(){t.hidden=true},2800)}
+function nextAdm(){var m=N;D.forEach(function(d){if(d.adm&&+d.adm>m)m=+d.adm});return String(m+1)}
+var RM=matchMedia("(prefers-reduced-motion:reduce)").matches,P={};
+function anim(){[].forEach.call(document.querySelectorAll(".v[data-n]"),function(el,i){var to=+el.dataset.n,from=P[i]==null?0:P[i];P[i]=to;if(RM||from===to){el.textContent=to;return}var t0=performance.now();(function st(t){var p=Math.min((t-t0)/800,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(from+(to-from)*e);if(p<1)requestAnimationFrame(st)})(t0)})}
+function head(){
+  var n=D.length,a=cnt("a"),r=cnt("p")?cnt("r"):cnt("r"),p=cnt("p"),dn=a+cnt("r");
+  $("kpis").innerHTML=[["hi","Yanasubiri mapitio",p,"Yanasubiri uamuzi wako"],["","Jumla ya maombi",n,"Mwaka wa masomo 2026/2027"],["","Waliokubaliwa",a,"Wanaweza kupakua barua za kujiunga"],["","Waliokataliwa",cnt("r"),"Sababu hutumwa kwa mwombaji"]].map(function(k){return'<div class="card k '+k[0]+'"><div class="l">'+k[1]+'</div><div class="v" data-n="'+k[2]+'">'+k[2]+'</div><div class="s">'+k[3]+'</div></div>'}).join("");
+  anim();$("nav").innerHTML=["all","p","a","r"].map(function(s){return'<button type="button" data-f="'+s+'" aria-pressed="'+(f===s)+'"><span>'+NM[s]+'</span><b>'+(s==="all"?n:cnt(s))+'</b></button>'}).join("")+'<button type="button" class="wn" data-w="1"><span>Admissions window permission</span><b>'+(W===null?"…":W?"WAZI":"FUNGWA")+'</b></button>'+'<button type="button" class="wn2" data-del="1"><span>Futa maombi yote</span></button>';
+  var C=2*Math.PI*52,o=0,arcs=["a","r","p"].map(function(s){var l=cnt(s)/(n||1)*C,e='<circle class="arc" r="52" cx="70" cy="70" fill="none" stroke="'+CL[s]+'" stroke-width="16" stroke-dasharray="'+l+' '+(C-l)+'" stroke-dashoffset="'+(-o)+'" transform="rotate(-90 70 70)"/>';o+=l;return e}).join("");
+  $("rg").innerHTML='<svg viewBox="0 0 140 140" role="img" aria-label="'+Math.round(dn/(n||1)*100)+'% ya maombi yamepitiwa"><circle r="52" cx="70" cy="70" fill="none" stroke="var(--so)" stroke-width="16"/>'+arcs+'<text x="70" y="72" text-anchor="middle" font-size="28" font-weight="700">'+Math.round(dn/(n||1)*100)+'%</text><text x="70" y="92" text-anchor="middle" font-size="12" style="fill:var(--mu)">yamepitiwa</text></svg><div class="lg"><span><i class="dot" style="background:var(--ok)"></i>'+a+' wamekubaliwa</span><span><i class="dot" style="background:var(--er)"></i>'+cnt("r")+' wamekataliwa</span><span><i class="dot" style="background:var(--gold)"></i>'+p+' wanasubiri</span></div>';
+}
+function list(){
+  var q=$("q").value.trim().toLowerCase(),l=$("lf").value;
+  var x=D.filter(function(d){return(f==="all"||d.st===f)&&(!l||d.reg===l)&&(!q||(d.fn+" "+d.ln+" "+d.mail+" "+d.reg).toLowerCase().indexOf(q)>-1)}).sort(function(a,b){return a.date<b.date?1:-1});
+  $("em").hidden=x.length>0;
+  $("tb").innerHTML=x.map(function(d,i){return'<tr style="--i:'+Math.min(i,10)+'" data-id="'+d.id+'"><td><div class="p"><span class="av">'+d.fn[0]+d.ln[0]+'</span><div>'+esc(d.fn+" "+d.ln)+'<small>'+esc(d.ci)+'</small></div></div></td><td>'+esc(d.reg)+'</td><td>'+esc(d.college)+'</td><td>'+fd(d.date)+'</td><td><span class="tag '+d.st+'">'+LB[d.st]+'</span></td><td>'+(d.st==="p"?'<div class="qa"><button class="ib y" type="button" data-adm="'+d.id+'" aria-label="Mkubali '+esc(d.fn)+'" title="Kubali">✓</button><button class="ib n" type="button" data-rej="'+d.id+'" aria-label="Mkatae '+esc(d.fn)+'" title="Kataa">✕</button></div>':"")+'</td></tr>'}).join("");
+}
+function all(){head();list()}
+function decide(id,st,x){var d=D[id];
+  fetch("admin_decide.php",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:d.dbid,status:{a:"admitted",r:"rejected",p:"pending"}[st],admission_no:x.adm||"",house:x.house||d.house,reason:x.why||""})})
+  .then(function(r){return r.json()}).then(function(j){
+    if(!j.ok){toast(j.message||"Imeshindikana kuhifadhi uamuzi.");return}
+    d.st=st;d.why=x.why||"";d.adm=j.admission_no||"";d.house=x.house||d.house;all();
+    toast(d.fn+" "+d.ln+(st==="a"?" amekubaliwa. Namba ya kujiunga "+d.adm:st==="r"?" amekataliwa":" amerudishwa kwenye kusubiri"))
+  }).catch(function(){toast("Imeshindikana kuwasiliana na seva.")})}
+function open(id,mode){
+  var d=D[id];lastFocus=document.activeElement;
+  var g=function(t,rows){return'<h4>'+t+'</h4><dl>'+rows.map(function(r){return'<dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd>'}).join("")+'</dl>'},ft="";
+  if(d.st==="p"){
+    if(mode==="a")ft='<label for="an">Namba ya kujiunga</label><input id="an" value="Itatengenezwa kiotomatiki" readonly><label for="hl">Eneo la makazi</label><input id="hl" value="'+esc(d.reg)+'"><small>Mwombaji ataona AMEKUBALIWA na ataweza kupakua barua ya kujiunga na maelekezo ya kujiunga.</small><div class="row"><button class="btn g" type="button" data-x="back">Rudi nyuma</button><button class="btn o" type="button" data-x="ok">Thibitisha kukubaliwa</button></div>';
+    else if(mode==="r")ft='<label for="why">Sababu ya kukataliwa</label><textarea id="why" placeholder="Mwombaji ataiona sababu hii."></textarea><div class="row"><button class="btn g" type="button" data-x="back">Rudi nyuma</button><button class="btn d" type="button" data-x="rej">Thibitisha kukataliwa</button></div>';
+    else ft='<div class="row"><button class="btn rj" type="button" data-x="rejform">Kataa</button><button class="btn o" type="button" data-x="admform">Mkubali mwombaji</button></div>';
+  }else ft='<div class="pv"><small>Anachokiona mwombaji</small><span class="tag '+d.st+'" style="margin-top:6px">'+LB[d.st]+'</span>'+(d.st==="a"?'<div class="lbl">Eneo la makazi</div><div class="vl">'+esc(d.house)+'</div><div class="lbl">Namba ya kujiunga</div><div class="bg">'+esc(d.adm)+'</div>':'<div class="lbl">Sababu</div><div class="vl">'+esc(d.why)+'</div>')+'</div><button class="btn g" type="button" data-x="undo">Rudisha kwenye kusubiri</button>';
+  $("dw").innerHTML='<div class="ov" data-x="close"></div><div class="dr" role="dialog" aria-modal="true" aria-labelledby="dt"><div class="dh"><div><span class="tag '+d.st+'">'+LB[d.st]+'</span><h3 id="dt">'+esc(d.fn+" "+d.ln)+'</h3><small>Namba ya mtihani '+esc(d.ci)+' · alituma maombi '+fd(d.date)+'</small></div><button class="ib" type="button" data-x="close" aria-label="Funga" id="cl">✕</button></div><div class="db">'+
+  g("Taarifa binafsi",[["Jinsia",d.sex],["Tarehe ya kuzaliwa",fd(d.dob)+" (umri miaka "+age(d.dob)+")"],["Uraia",d.nat],["Ngazi ya masomo",d.lvl],["Mwaka wa masomo","2026/2027"]])+g("Mawasiliano",[["Mkoa",d.reg],["Wilaya",d.dist],["Namba ya simu",d.tel],["Barua pepe",d.mail]])+g("Kidato cha nne (CSEE)",[["Jina la shule",d.cs],["Masomo na madaraja",d.sub]])+g("Kozi na ufadhili",[["Kozi unayosoma",d.course],["Chuo unachosoma",d.college],["Anayegharamia masomo",d.fund]])+'</div><div class="df">'+ft+'</div></div>';
+  $("dw").dataset.id=id;var el=mode==="r"?$("why"):mode==="a"?$("an"):$("cl");el.focus();
+}
+function close(){$("dw").innerHTML="";if(lastFocus)try{lastFocus.focus()}catch(e){}}
+$("dw").addEventListener("click",function(e){var b=e.target.closest("[data-x]");if(!b)return;var id=+this.dataset.id,x=b.dataset.x;
+  if(x==="close")close();else if(x==="back")open(id);else if(x==="admform")open(id,"a");else if(x==="rejform")open(id,"r");
+  else if(x==="ok"){var h=$("hl").value.trim();if(!h){$("hl").style.borderColor="var(--er)";return}decide(id,"a",{adm:"",house:h});close()}
+  else if(x==="rej"){var w=$("why").value.trim();if(!w){$("why").style.borderColor="var(--er)";$("why").placeholder="Andika sababu kabla ya kukataa.";$("why").focus();return}decide(id,"r",{why:w});close()}
+  else if(x==="undo"){decide(id,"p",{});close()}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("dw").innerHTML)close()});
+$("nav").addEventListener("click",function(e){var b=e.target.closest("[data-f]");if(b){f=b.dataset.f;all()}});
+$("tb").addEventListener("click",function(e){var b=e.target.closest("[data-adm]");if(b){e.stopPropagation();open(+b.dataset.adm,"a");return}b=e.target.closest("[data-rej]");if(b){e.stopPropagation();open(+b.dataset.rej,"r");return}var r=e.target.closest("tr");if(r)open(+r.dataset.id)});
+$("q").addEventListener("input",list);$("lf").addEventListener("change",list);
+function load(){fetch("admin_applications.php",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){
+if(j.redirect&&!j.applications){location.href=j.redirect;return}
+if(!j.applications){toast(j.message||"Imeshindikana kupakia maombi.");return}
+D=j.applications.map(function(o,i){o.id=i;return o});
+var rs={};D.forEach(function(d){rs[d.reg]=1});Object.keys(rs).sort().forEach(function(r){var o=document.createElement("option");o.textContent=r;$("lf").appendChild(o)});
+all();}).catch(function(){toast("Imeshindikana kupakia maombi.")})}
+all();load();winGet();
+function winGet(){fetch("admission-window.php?t="+Date.now(),{cache:"no-store",credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){W=j.open!==false;head()}).catch(function(){})}
+function winSet(o){fetch("admission-window.php",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({open:o})}).then(function(r){return r.json()}).then(function(j){
+  if(!j.ok){toast(j.message||"Imeshindikana kubadilisha dirisha.");return}
+  W=j.open;head();winBox();toast(W?"Dirisha la usajili limefunguliwa.":"Dirisha la usajili limefungwa.")}).catch(function(){toast("Imeshindikana kuwasiliana na seva.")})}
+function delBox(){$("ww").innerHTML='<div class="ww" data-wx="close"><div class="bx" role="dialog" aria-modal="true" aria-labelledby="dt"><h3 id="dt">Futa maombi yote</h3><span class="st c">Haiwezi kurudishwa</span><p>Maombi yote yaliyotumwa ('+D.length+') yatafutwa kabisa. Akaunti za waombaji hazitafutwa. Andika <b>FUTA</b> ili kuthibitisha.</p><input id="dc" type="text" autocomplete="off" aria-label="Andika FUTA" placeholder="FUTA"><div class="row"><button class="btn g" type="button" data-wx="close">Ghairi</button><button class="btn d" type="button" data-wx="delgo">Futa yote</button></div></div></div>';$("dc").focus()}
+function delAll(){if(($("dc").value||"").trim()!=="FUTA"){toast("Andika FUTA ili kuthibitisha.");return}
+fetch("admin_delete_all.php",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({confirm:"FUTA"})}).then(function(r){return r.json()}).then(function(j){
+if(!j.ok){toast(j.message||"Imeshindikana kufuta maombi.");return}
+D=[];all();$("ww").innerHTML="";toast("Maombi yote yamefutwa ("+(j.deleted||0)+").")}).catch(function(){toast("Imeshindikana kuwasiliana na seva.")})}
+function winBox(){$("ww").innerHTML='<div class="ww" data-wx="close"><div class="bx" role="dialog" aria-modal="true" aria-labelledby="wt"><h3 id="wt">Admissions window permission</h3><span class="st '+(W?"o":"c")+'">'+(W?"Dirisha liko wazi":"Dirisha limefungwa")+'</span><p>Ukifunga dirisha, waombaji wataona ukurasa wa "Applications are currently closed". Ukifungua, wataelekezwa moja kwa moja kwenye ukurasa wa kuingia/kujisajili.</p><div class="row"><button class="btn d" type="button" data-wx="closewin"'+(W===false?" disabled":"")+'>Close window</button><button class="btn o" type="button" data-wx="openwin"'+(W?" disabled":"")+'>Open window</button></div><div class="row" style="margin-top:10px"><button class="btn g" type="button" data-wx="close">Funga</button></div></div></div>'}
+$("ww").addEventListener("click",function(e){var b=e.target.closest("[data-wx]");if(!b)return;var x=b.dataset.wx;if(x==="close"){if(b.classList.contains("ww")&&e.target!==b)return;$("ww").innerHTML=""}else if(x==="openwin")winSet(true);else if(x==="closewin")winSet(false);else if(x==="delgo")delAll()});
+$("nav").addEventListener("click",function(e){if(e.target.closest("[data-w]"))winBox();else if(e.target.closest("[data-del]"))delBox()});
+})();
+</script></body></html>

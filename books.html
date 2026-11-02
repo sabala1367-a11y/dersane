@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Targets | DERSANE HOUSE</title>
+<style>
+:root{--ink:#F4F6FB;--ink-2:rgba(244,246,251,.74);--gold:#F5A400;--glass:rgba(255,255,255,.10);--glass-2:rgba(255,255,255,.17);--edge:rgba(255,255,255,.26);--shadow:0 18px 44px rgba(3,9,24,.40)}
+*{box-sizing:border-box}
+html{background:#0b1830 linear-gradient(165deg,#0a1530 0%,#102035 40%,#2a2150 75%,#4a1f3d 100%) fixed;min-height:100%}
+body{margin:0;font-family:Arial,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden}
+body::before,body::after{content:"";position:fixed;z-index:0;border-radius:50%;filter:blur(70px);pointer-events:none;animation:drift 18s ease-in-out infinite}
+body::before{width:420px;height:420px;background:#2f63d0;opacity:.45;top:-120px;left:-100px}
+body::after{width:380px;height:380px;background:#f5a400;opacity:.22;bottom:-120px;right:-80px;animation-delay:-7s}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(36px,-28px)}}
+a{color:inherit;text-decoration:none}
+.glass,.header,.tabs,.year,footer{background:var(--glass);border:1px solid var(--edge);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.22)}
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:16px}
+.header{display:flex;align-items:center;gap:22px;padding:18px 26px;border-radius:24px}
+.header h1{margin:0 0 6px;font-family:"Times New Roman",serif;font-size:32px;letter-spacing:3px}
+.header p{margin:0;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-2)}
+.back{margin-left:auto;padding:10px 18px;border-radius:14px;background:var(--glass-2);border:1px solid var(--edge);font-size:14px;transition:background .2s,transform .2s;white-space:nowrap}
+.back:hover{background:rgba(255,255,255,.28);transform:translateY(-2px)}
+.intro{margin:26px 4px 18px;color:var(--ink-2);max-width:68ch;line-height:1.6}
+.tabs{display:inline-flex;gap:6px;padding:6px;border-radius:18px;margin-bottom:22px;flex-wrap:wrap}
+.tabs button{border:0;background:transparent;color:var(--ink-2);font:700 14px Arial,sans-serif;padding:11px 22px;border-radius:13px;cursor:pointer;transition:background .2s,color .2s}
+.tabs button:hover{background:var(--glass-2);color:#fff}
+.tabs button[aria-selected="true"]{background:linear-gradient(100deg,#f5a400,#e08a00);color:#1b1200}
+.panel{animation:up .5s ease both}
+.panel[hidden]{display:none}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.year-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.year{border-radius:22px;padding:22px;border-top:3px solid var(--gold)}
+.year h3{margin:0 0 14px;font-size:17px;letter-spacing:1px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.2)}
+.book{display:flex;align-items:center;gap:12px;padding:11px 12px;margin-bottom:10px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);transition:background .2s,transform .2s}
+.book:hover{background:var(--glass-2);transform:translateX(3px)}
+.bi{font-size:20px}
+.bn{flex:1;font-size:15px;line-height:1.35}
+.open{padding:8px 18px;border-radius:999px;background:linear-gradient(100deg,#f5a400,#e08a00);color:#1b1200;font-weight:700;font-size:13px;transition:filter .2s,transform .2s;white-space:nowrap}
+.open:hover{filter:brightness(1.1);transform:scale(1.05)}
+.open:focus-visible,.tabs button:focus-visible,.back:focus-visible{outline:3px solid #fff;outline-offset:2px}
+footer{margin:28px 0 8px;padding:16px;border-radius:20px;text-align:center;color:var(--ink-2);font-size:13px}
+@media(max-width:640px){.header{flex-direction:column;text-align:center}.back{margin:0}.header h1{font-size:26px}.year-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="header">
+    <div><h1>BOOK TARGETS</h1><p>DERSANE HOUSE &middot; Reading plan</p></div>
+    <a class="back" href="index.php#student-portal">&larr; Back to portal</a>
+</header>
+
+<p class="intro">Choose your semester and find the books assigned to your year. Press <b>Open</b> to read a book &mdash; it opens in a new tab.</p>
+
+<div class="tabs" role="tablist" aria-label="Book targets">
+    <button type="button" role="tab" id="t-s1" aria-controls="s1" aria-selected="true" data-p="s1">Semester 01</button>
+    <button type="button" role="tab" id="t-s2" aria-controls="s2" aria-selected="false" data-p="s2">Semester 02</button>
+    <button type="button" role="tab" id="t-camps" aria-controls="camps" aria-selected="false" data-p="camps">Camps</button>
+</div>
+
+<section class="panel" id="s1" role="tabpanel" aria-labelledby="t-s1">
+<div class="year-grid">
+<article class="year"><h3>First Years</h3>
+<div class="book"><span class="bi">📖</span><span class="bn">Cleanliness in Islam</span><a class="open" href="https://drive.google.com/file/d/1C9i_QQI1zxwPHk7PEB5TDjMJE6nZ7xVQ/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Cleanliness in Islam">Open</a></div>
+<div class="book"><span class="bi">📖</span><span class="bn">Social Morality in Islam</span><a class="open" href="https://drive.google.com/file/d/13Q3Lgzr7oJzfFzy58HUjs_2_A8BnGslv/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Social Morality in Islam">Open</a></div>
+</article>
+<article class="year"><h3>Second Years</h3>
+<div class="book"><span class="bi">📖</span><span class="bn">Qualities of a Devoted Soul</span><a class="open" href="https://drive.google.com/file/d/1-JHOHNn0lZUtAIercICi4FFBLVY0qCVy/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Qualities of a Devoted Soul">Open</a></div>
+<div class="book"><span class="bi">📖</span><span class="bn">My Guide Vol. 02</span><a class="open" href="https://drive.google.com/file/d/1XbqTLbVJihd9sm-Unf_x07tNOSweolCg/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open My Guide Vol. 02">Open</a></div>
+</article>
+<article class="year"><h3>Third Years</h3>
+<div class="book"><span class="bi">📖</span><span class="bn">Questions and Answers Vol. 01</span><a class="open" href="https://drive.google.com/file/d/1mwjUjI4RdOGmbGcirQ0BTjLEgEhKi688/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Questions and Answers Vol. 01">Open</a></div>
+<div class="book"><span class="bi">📖</span><span class="bn">Essentials of the Islamic Faith</span><a class="open" href="https://drive.google.com/file/d/1LpQVZJzBtOsDw8IBEt0bC6WlTLV65v8H/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Essentials of the Islamic Faith">Open</a></div>
+</article>
+<article class="year"><h3>Finalists</h3>
+<div class="book"><span class="bi">📖</span><span class="bn">Beware Satan</span><a class="open" href="https://drive.google.com/file/d/1aCCxK5Rzbuc22JDFBspZsIMMy2OiI6Fk/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Beware Satan">Open</a></div>
+<div class="book"><span class="bi">📖</span><span class="bn">From Seed to Cedar</span><a class="open" href="https://drive.google.com/file/d/1NXSY111PoIHv17GV6ei66ciU59bWYdzm/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open From Seed to Cedar">Open</a></div>
+</article>
+</div>
+</section>
+<section class="panel" id="s2" role="tabpanel" aria-labelledby="t-s2" hidden>
+<div class="year-grid">
+<article class="year"><h3>First Years</h3>
+<div class="book"><span class="bi">📖</span><span class="bn">My Guide Vol. 01</span><a class="open" href="https://drive.google.com/file/d/1kMCmJsepWYlvR_EaZdOLcm9eEQvyNkEj/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open My Guide Vol. 01">Open</a></div>
+<div class="book"><span class="bi">📖</span><span class="bn">Inner Dynamics</span><a class="open" href="https://drive.google.com/file/d/1MyiHufytEjThwT_1ICmtd_Z6TQjCsttJ/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Inner Dynamics">Open</a></div>
+</article>
+<article class="year"><h3>Second Years</h3>
+<div class="book"><span class="bi">📖</span><span class="bn">Endeavor for Renewal</span><a class="open" href="https://drive.google.com/file/d/1w_w2mmfdAWipcl9bT6kwjeM7ck0RIzzt/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Endeavor for Renewal">Open</a></div>
+<div class="book"><span class="bi">📖</span><span class="bn">My Guide Vol. 03</span><a class="open" href="https://drive.google.com/file/d/15ONOlc4KKJKOz-BnsEdkAEvO9eWov-b9/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open My Guide Vol. 03">Open</a></div>
+</article>
+<article class="year"><h3>Third Years</h3>
+<div class="book"><span class="bi">📖</span><span class="bn">Love and Tolerance</span><a class="open" href="https://drive.google.com/file/d/1wnA7LOsDCQBqgOHJ03z4PL5DaxHl_ycI/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Love and Tolerance">Open</a></div>
+<div class="book"><span class="bi">📖</span><span class="bn">Questions and Answers Vol. 02</span><a class="open" href="https://drive.google.com/file/d/1OkjlXTp0wqzFwNgioqU_VbP_EuyIK9D3/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Questions and Answers Vol. 02">Open</a></div>
+</article>
+<article class="year"><h3>Finalists</h3>
+<div class="book"><span class="bi">📖</span><span class="bn">Pearls of Wisdom</span><a class="open" href="https://drive.google.com/file/d/1zE8D5CgfU-8xet9hSnj7Akd-AFFh4k7O/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Pearls of Wisdom">Open</a></div>
+<div class="book"><span class="bi">📖</span><span class="bn">So That Others May Live</span><a class="open" href="https://drive.google.com/file/d/14-_Ci7xI57cNGP33VLWzEvT1Vgy1SC6A/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open So That Others May Live">Open</a></div>
+</article>
+</div>
+</section>
+<section class="panel" id="camps" role="tabpanel" aria-labelledby="t-camps" hidden>
+<div class="year-grid">
+<article class="year"><h3>First Year</h3>
+<div class="book"><span class="bi">📖</span><span class="bn">Calling To Good</span><a class="open" href="https://drive.google.com/file/d/12tTFuPSj1Te55yJbNtxucxRlvLnfblP3/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Calling To Good">Open</a></div>
+</article>
+<article class="year"><h3>Second Year</h3>
+<div class="book"><span class="bi">📖</span><span class="bn">Sultan of Hearts Vol. 01</span><a class="open" href="https://drive.google.com/file/d/1q-EfZWROQPu0whNmtcV_hFc84SKFlixe/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Sultan of Hearts Vol. 01">Open</a></div>
+</article>
+<article class="year"><h3>Third Year</h3>
+<div class="book"><span class="bi">📖</span><span class="bn">Sultan of Hearts Vol. 02</span><a class="open" href="https://drive.google.com/file/d/1q-EfZWROQPu0whNmtcV_hFc84SKFlixe/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Sultan of Hearts Vol. 02">Open</a></div>
+</article>
+<article class="year"><h3>Finalists</h3>
+<div class="book"><span class="bi">📖</span><span class="bn">Journey to Noble Ideals</span><a class="open" href="https://drive.google.com/file/d/1MVFF5eyzcYjzhRWv-rt5ouzUrliWTvdq/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open Journey to Noble Ideals">Open</a></div>
+</article>
+</div>
+</section>
+
+<footer>&copy; <span id="year"></span> DERSANE HOUSE. All Rights Reserved.</footer>
+</div>
+<script>
+var tabs=document.querySelectorAll('.tabs button');
+function show(id){
+    tabs.forEach(function(b){b.setAttribute('aria-selected',b.dataset.p===id?'true':'false');});
+    document.querySelectorAll('.panel').forEach(function(p){p.hidden=(p.id!==id);});
+    try{history.replaceState(null,'','#'+id);}catch(e){}
+}
+tabs.forEach(function(b,i){
+    b.addEventListener('click',function(){show(b.dataset.p);});
+    b.addEventListener('keydown',function(e){
+        var n=e.key==='ArrowRight'?i+1:e.key==='ArrowLeft'?i-1:null;
+        if(n===null)return; n=(n+tabs.length)%tabs.length; tabs[n].focus(); show(tabs[n].dataset.p);
+    });
+});
+var h=location.hash.slice(1); if(['s1','s2','camps'].indexOf(h)>-1) show(h);
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

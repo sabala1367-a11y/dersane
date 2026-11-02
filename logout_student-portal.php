@@ -1,0 +1,12 @@
+<?php
+/** logout_student-portal.php — inamaliza session (admin au mwanafunzi) na kurudisha login_student-portal.php. */
+declare(strict_types=1);
+require __DIR__ . '/config_student-portal.php';
+header('Cache-Control: no-store');
+$_SESSION = [];
+if (ini_get('session.use_cookies')) {
+    $p = session_get_cookie_params();
+    setcookie(session_name(), '', ['expires' => time() - 42000, 'path' => $p['path'], 'domain' => $p['domain'], 'secure' => $p['secure'], 'httponly' => true, 'samesite' => 'Lax']);
+}
+if (session_status() === PHP_SESSION_ACTIVE) session_destroy();
+sp_redirect('login_student-portal.php');

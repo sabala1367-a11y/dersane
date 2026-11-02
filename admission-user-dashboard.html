@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Online Application</title>
+<style>
+:root{--navy:#141b5e;--navy2:#232f8c;--gold:#e3bf4a;--bg:#f2f3f8;--card:#fff;--ink:#1a1c2c;--mute:#5b6074;--line:#e3e5ee;--ok:#0c7a52;--okbg:#dff1ea}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
+header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:18px 16px 22px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+h1{font-size:18px;margin:0}
+.sub{opacity:.8;font-size:13px;margin-top:2px}
+.btn{border:0;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+.gold{background:var(--gold);color:#1a1c2c}
+.navy{background:var(--navy);color:#fff}
+.out{background:#fff;color:var(--navy);border:1.5px solid #c9cdea}
+.ghost{background:rgba(255,255,255,.15);color:#fff}
+main{padding:14px 14px 40px;max-width:640px;margin:-10px auto 0}
+.card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 1px 6px rgba(20,27,94,.08)}
+.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.head h2{font-size:16px;margin:0}
+.eye{background:var(--bg);border:0;border-radius:8px;padding:6px 10px;font-size:13px;cursor:pointer;color:var(--mute)}
+.tag{display:inline-block;background:var(--okbg);color:var(--ok);font-weight:700;letter-spacing:.08em;font-size:12px;padding:5px 12px;border-radius:99px}
+.lbl{font-size:11px;letter-spacing:.1em;color:var(--mute);font-weight:700;text-transform:uppercase;margin-top:12px}
+.val{font-size:17px;font-weight:700}
+.big{font-size:24px;letter-spacing:.04em}
+.hidden-body{display:none}
+.is-hidden .body{display:none}
+.is-hidden .hidden-body{display:block;color:var(--mute);font-size:14px}
+.mask .sens{filter:blur(8px);user-select:none}
+.doc{border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:10px}
+.doc b{display:block;font-size:16px}
+.doc span{color:var(--mute);font-size:14px;display:block;margin:2px 0 10px}
+.cta{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff}
+.cta .k{color:var(--gold);letter-spacing:.15em;font-size:12px;font-weight:700}
+.cta h2{font-size:22px;margin:6px 0}
+.cta p{opacity:.9;margin:0 0 14px;font-size:15px}
+.step{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border:0}
+.step input{width:22px;height:22px;margin-top:2px;accent-color:var(--navy)}
+.step.done label{text-decoration:line-through;opacity:.55}
+.prog{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin:6px 0 4px}
+.prog i{display:block;height:100%;background:var(--navy);width:0;transition:width .3s}
+.warn{font-size:14px;color:var(--mute)}
+.acc{display:flex;gap:14px;align-items:center;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:12px;padding:14px}
+.av{width:52px;height:52px;border-radius:50%;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+.acc b{display:block;font-size:15px}
+.acc small{opacity:.85;font-size:13px}
+.pill{display:inline-block;border:1.5px solid #c9cdea;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:700;margin-top:6px}
+.sech{font-size:12px;letter-spacing:.12em;color:var(--mute);font-weight:700;margin:16px 0 4px}
+.item{display:flex;gap:12px;align-items:center;padding:12px 6px;border-radius:12px;text-decoration:none;color:var(--ink)}
+.item .ic{width:42px;height:42px;border-radius:12px;background:#ececf7;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none}
+.item b{display:block;font-size:16px}
+.item span.d{font-size:13px;color:var(--mute)}
+.item.active{background:#eaf1fd;border-left:4px solid #6aa7f5}
+.item+.item{border-top:1px solid var(--line)}
+.burger{background:none;border:0;padding:8px;cursor:pointer;display:flex;flex-direction:column;gap:5px;margin-right:6px}
+.burger i{display:block;width:24px;height:3px;background:#fff;border-radius:2px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:.25s;z-index:20}
+.ov.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;bottom:0;left:0;width:78%;max-width:320px;background:#fafafc;transform:translateX(-100%);transition:transform .25s;z-index:30;box-shadow:4px 0 20px rgba(0,0,0,.2)}
+.drawer.open{transform:none}
+.dh{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:22px 16px;margin-bottom:8px}
+.dh b{display:block;font-size:22px}
+.dh small{letter-spacing:.12em;font-size:12px}
+header{position:relative}
+.chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:0;border-radius:99px;padding:4px 12px 4px 4px;color:#fff;font-weight:600;font-size:13px;cursor:pointer;max-width:150px}
+.av.sm{width:30px;height:30px;font-size:12px}
+.cn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dd{display:none;position:absolute;right:12px;top:62px;width:min(340px,calc(100% - 24px));background:#fff;color:var(--ink);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.28);overflow:hidden;z-index:40;padding-bottom:6px}
+.dd.open{display:block}
+.dd .acc{border-radius:0;margin-bottom:6px}
+.dd .item{margin:0 6px}
+.mbtn{width:calc(100% - 12px);background:none;border:0;border-top:1px solid var(--line);font:inherit;text-align:left;cursor:pointer;color:var(--ink)}
+.sheet{position:fixed;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;padding:16px 16px 28px;transform:translateY(105%);transition:transform .28s;z-index:50;max-height:85vh;overflow:auto;box-shadow:0 -8px 30px rgba(0,0,0,.25)}
+.sheet.open{transform:none}
+.hl{border-top:1px solid var(--line);padding:2px 2px 12px}
+#ov2{z-index:45}
+.tbl{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.tbl .r{display:flex;gap:12px;padding:12px 14px;border-top:1px solid var(--line);align-items:center}
+.tbl .r:first-child{border-top:0}
+.tbl .r span{flex:0 0 38%;font-weight:700;font-size:14px}
+.tbl .r b{font-weight:500;font-size:15px;word-break:break-word}
+.foot{text-align:center;font-size:12px;color:var(--mute);margin-top:18px}
+</style>
+<style>html:not(.ready) body{visibility:hidden}</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <button class="burger" id="menu" aria-label="Menu"><i></i><i></i><i></i></button>
+    <div style="flex:1"><h1>Online Application</h1><div class="sub">Step 2 of 2 • Admitted</div></div>
+    <button class="chip" id="chip" aria-label="Account"><span class="av sm">@@ini@@</span><span class="cn sens">@@short@@</span></button>
+    <div class="dd" id="dd">
+      <div class="acc">
+        <div class="av">@@ini@@</div>
+        <div><b class="sens">@@name@@</b><small class="sens">@@exam@@</small><br><span class="pill">Applicant account</span></div>
+      </div>
+      <div class="sech" style="padding:0 14px">🛡 SECURITY</div>
+      <a class="item" href="https://oas.cbe.ac.tz" target="_blank" rel="noopener"><div class="ic">🔐</div><div><b>Change Password</b><span class="d">Update your account credentials securely</span></div></a>
+      <a class="item" href="logout-admission-system.php"><div class="ic">🚪</div><div><b>Logout</b><span class="d">End this applicant portal session</span></div></a>
+      <button class="item mbtn" id="master"><div class="ic">🙈</div><div><b>Hide sensitive info</b><span class="d">Name and numbers</span></div></button>
+    </div>
+  </div>
+</header>
+
+<div class="ov" id="ov"></div>
+<aside class="drawer" id="drawer">
+  <div class="dh"><b>DEESANE</b><small>APPLICANT PORTAL</small></div>
+  <div class="sech" style="padding:0 16px">YOUR APPLICATION</div>
+  <div style="padding:0 10px">
+    <a class="item" href="#" id="pd"><div class="ic">👤</div><div><b>Personal Details</b><span class="d">Your key details</span></div></a>
+    <a class="item active" href="#" data-go="status"><div class="ic">✅</div><div><b>Selection</b><span class="d">Admission status</span></div></a>
+  </div>
+</aside>
+
+<div class="ov" id="ov2"></div>
+<div class="sheet" id="sheet">
+  <div class="head"><h2>Personal Details</h2><button class="eye" id="closeSheet">✕ Close</button></div>
+  <div class="acc"><div class="av">@@ini@@</div><div><b class="sens">@@name@@</b><small>Admitted applicant</small><br><span class="pill">Applicant account</span></div></div>
+  <div class="hl"><div class="lbl">Account number</div><div class="val sens">@@exam@@</div></div>
+  <div class="hl"><div class="lbl">Admission number</div><div class="val sens">@@adm@@</div></div>
+  <div class="hl"><div class="lbl">House location</div><div class="val">@@house@@</div></div>
+  <div class="hl"><div class="lbl">Status</div><div class="val"><span class="tag">ADMITTED</span> • Step 2 of 2</div></div>
+  <div class="sech">APPLICANT INFORMATION</div>
+  <div class="tbl"><div class="r"><span>Full name</span><b class="sens">@@name@@</b></div><div class="r"><span>Gender</span><b>@@sex@@</b></div><div class="r"><span>Birth date</span><b class="sens">@@dob@@</b></div><div class="r"><span>Citizenship</span><b>@@nat@@</b></div><div class="r"><span>Level of study</span><b>@@lvl@@</b></div><div class="r"><span>Academic year</span><b>2026/2027</b></div></div>
+  <div class="sech">APPLICANT ADDRESS</div>
+  <div class="tbl"><div class="r"><span>Country</span><b>Tanzania</b></div><div class="r"><span>Region</span><b>@@reg@@</b></div><div class="r"><span>District</span><b>@@dist@@</b></div><div class="r"><span>Phone</span><b class="sens">@@tel@@</b></div><div class="r"><span>Email</span><b class="sens">@@mail@@</b></div></div>
+</div>
+
+<main id="app">
+
+<section class="card" data-sec="status">
+  <div class="head"><h2>Admission status</h2><button class="eye" data-eye>🙈 Hide</button></div>
+  <div class="body">
+    <span class="tag">ADMITTED</span>
+    <div class="lbl">Applicant</div>
+    <div class="val sens">@@name@@</div>
+    <div class="lbl">House location</div>
+    <div class="val">@@house@@</div>
+    <div class="lbl">Admission number</div>
+    <div class="val big sens">@@adm@@</div>
+  </div>
+  <div class="hidden-body">This section is hidden.</div>
+</section>
+
+<section class="card" data-sec="docs">
+  <div class="head"><h2>Available documents</h2><button class="eye" data-eye>🙈 Hide</button></div>
+  <div class="body">
+    <div class="warn">Download official admission documents and reporting guidance.</div>
+    <div class="doc"><b>Admission letter</b><span>Keep a copy for registration.</span>
+      <a class="btn navy" href="download.php?f=letter">⬇ Download Admission Letter</a></div>
+    <div class="doc"><b>Joining instructions</b><span>Reporting dates and documents to bring.</span>
+      <a class="btn out" href="download.php?f=joining">📖 Download Joining Instructions</a></div>
+  </div>
+  <div class="hidden-body">This section is hidden.</div>
+</section>
+
+<section class="card" data-sec="todo">
+  <div class="head"><h2>What to do next</h2><button class="eye" data-eye>🙈 Hide</button></div>
+  <div class="body">
+    <div class="prog"><i id="bar"></i></div>
+    <div class="warn" id="pct">0 of 3 completed</div>
+    <div id="steps"></div>
+  </div>
+  <div class="hidden-body">This section is hidden.</div>
+</section>
+
+</main>
+
+<script>
+const S={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let hid=S.get('hid',{}), checks=S.get('chk3',[false,false,false]), masked=S.get('mask',false);const steps=["Download your admission letter and keep a copy for registration","Read the joining instructions and prepare the documents they list","Follow the reporting dates and your brother's instructions"];
+function render(){
+  document.querySelectorAll('[data-sec]').forEach(s=>{
+    const h=!!hid[s.dataset.sec];
+    s.classList.toggle('is-hidden',h);
+    s.querySelector('[data-eye]').textContent=h?'👁 Show':'🙈 Hide';
+  });
+  document.body.classList.toggle('mask',masked);
+  document.getElementById('master').textContent=masked?'👁 Show sensitive info':'🙈 Hide sensitive info';
+  const box=document.getElementById('steps');box.innerHTML='';
+  steps.forEach((t,i)=>{
+    const d=document.createElement('div');d.className='step'+(checks[i]?' done':'');
+    d.innerHTML=`<input type="checkbox" id="c${i}" ${checks[i]?'checked':''}><label for="c${i}">${t}</label>`;
+    d.querySelector('input').onchange=e=>{checks[i]=e.target.checked;S.set('chk3',checks);render()};
+    box.appendChild(d);
+  });
+  const n=checks.filter(Boolean).length;
+  document.getElementById('bar').style.width=(n/steps.length*100)+'%';
+  document.getElementById('pct').textContent=n+' of '+steps.length+' completed';
+}
+document.querySelectorAll('[data-eye]').forEach(b=>b.onclick=()=>{const k=b.closest('[data-sec]').dataset.sec;hid[k]=!hid[k];S.set('hid',hid);render()});
+document.getElementById('master').onclick=()=>{masked=!masked;S.set('mask',masked);render()};
+const dd=document.getElementById('dd');
+document.getElementById('chip').onclick=e=>{e.stopPropagation();dd.classList.toggle('open')};
+document.addEventListener('click',e=>{if(!dd.contains(e.target))dd.classList.remove('open')});
+const sheet=document.getElementById('sheet'),ov2=document.getElementById('ov2');
+function toggleSheet(o){sheet.classList.toggle('open',o);ov2.classList.toggle('open',o)}
+document.getElementById('pd').onclick=e=>{e.preventDefault();toggleDrawer(false);toggleSheet(true)};
+document.getElementById('closeSheet').onclick=()=>toggleSheet(false);
+ov2.onclick=()=>toggleSheet(false);
+const drawer=document.getElementById('drawer'),ov=document.getElementById('ov');
+function toggleDrawer(o){drawer.classList.toggle('open',o);ov.classList.toggle('open',o)}
+document.getElementById('menu').onclick=()=>toggleDrawer(true);
+ov.onclick=()=>toggleDrawer(false);
+document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{
+  e.preventDefault();
+  const k=a.dataset.go;
+  if(hid[k]){hid[k]=false;S.set('hid',hid);render()}
+  document.querySelectorAll('#drawer .item').forEach(i=>i.classList.toggle('active',i===a));
+  toggleDrawer(false);
+  setTimeout(()=>document.querySelector('[data-sec="'+k+'"]').scrollIntoView({behavior:'smooth',block:'start'}),200);
+});
+render();
+</script>
+<script>
+(function(){
+  var done=false;
+  function go(u){location.href=u}
+  function ini(n){var p=String(n).trim().split(/\s+/);return((p[0]||"")[0]||"")+((p.length>1?p[p.length-1][0]:"")||"")}
+  function bind(a){
+    var m={name:a.name,short:a.name.length>13?a.name.slice(0,13)+"\u2026":a.name,ini:ini(a.name).toUpperCase(),exam:a.exam,adm:a.admission_no,house:a.house,reg:a.reg,dist:a.dist,sex:a.sex,dob:a.dob,nat:a.nat,lvl:String(a.lvl).toUpperCase(),tel:a.tel,mail:a.mail};
+    var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),n,list=[];
+    while(n=w.nextNode())if(n.nodeValue.indexOf("@@")>-1)list.push(n);
+    list.forEach(function(t){t.nodeValue=t.nodeValue.replace(/@@(\w+)@@/g,function(_,k){return m[k]==null?"":m[k]})});
+  }
+  function check(){
+    fetch("me.php",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){
+      if(!j.ok||!j.user)return go("Neon_Orbit_Login.html");
+      if(j.user.role==="admin")return go("Admissions-admin-dashboard.html");
+      var a=j.application;
+      if(!a||a.status!=="admitted")return go("application_form.html");
+      if(!done){done=true;bind(a);document.documentElement.className="ready"}
+    }).catch(function(){})
+  }
+  check();setInterval(check,30000);
+})();
+</script>
+</body>
+</html>

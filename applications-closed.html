@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Applications closed</title>
+<style>
+  :root {
+    --bg: #eef2ff;
+    --card: #ffffff;
+    --navy: #0a1aa8;
+    --text: #4a5372;
+    --ink: #101a3a;
+    --orange: #f2600c;
+    --orange-soft: #fff1e6;
+    --orange-line: #fcd3ae;
+    --violet: #6a00f4;
+    --blue: #008cff;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    background: linear-gradient(180deg, #eaf0ff 0%, #f7f9ff 100%);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    position: relative;
+    width: 100%; max-width: 340px;
+    background: var(--card);
+    border-radius: 22px;
+    padding: 32px 22px 26px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(80, 90, 220, .15);
+    overflow: hidden;
+  }
+  .card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--violet), var(--blue));
+  }
+  .badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: var(--orange-soft);
+    border: 1.5px solid var(--orange-line);
+    color: var(--orange);
+    font-weight: 700; font-size: .85rem;
+  }
+  .icon {
+    width: 62px; height: 62px; margin: 16px auto 0;
+    border-radius: 50%;
+    background: #fff;
+    border: 1.5px solid var(--orange-line);
+    display: grid; place-items: center;
+    box-shadow: 0 8px 24px rgba(242, 96, 12, .18);
+  }
+  .icon span {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--orange-soft);
+    display: grid; place-items: center;
+  }
+  .icon svg { width: 22px; height: 22px; }
+  h1 {
+    margin: 18px 0 10px;
+    color: var(--navy);
+    font-size: clamp(1.4rem, 6vw, 1.75rem);
+    line-height: 1.15; font-weight: 800;
+    letter-spacing: -.02em;
+  }
+  p {
+    margin: 0 auto 26px; max-width: 34ch;
+    color: var(--text);
+    font-size: .9rem; line-height: 1.55;
+  }
+  .btn {
+    position: relative; overflow: hidden;
+    display: block; width: 100%;
+    padding: 7px 14px;
+    border-radius: 12px;
+    font: inherit; font-weight: 700; font-size: .95rem;
+    text-decoration: none; text-align: center;
+    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease;
+  }
+  .btn::after {
+    content: ""; position: absolute; top: 0; left: -80%; width: 50%; height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.45), transparent);
+    transform: skewX(-20deg); pointer-events: none;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:hover::after { left: 130%; transition: left .6s ease; }
+  .btn:active { transform: scale(.97); }
+  .btn:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+  .primary {
+    color: #fff;
+    background: linear-gradient(90deg, var(--violet), var(--blue));
+    box-shadow: 0 8px 18px rgba(70, 90, 255, .3);
+    animation: glow 2.4s ease-in-out infinite;
+  }
+  .primary:hover { box-shadow: 0 12px 26px rgba(70, 90, 255, .45); }
+  .secondary:hover { border-color: #6a00f4; box-shadow: 0 8px 18px rgba(106, 0, 244, .15); }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 8px 18px rgba(70, 90, 255, .3); }
+    50% { box-shadow: 0 8px 26px rgba(70, 90, 255, .55); }
+  }
+  @media (prefers-reduced-motion: reduce) { .btn, .btn::after { animation: none !important; transition: none !important; } }
+  .secondary {
+    margin-top: 10px;
+    color: var(--ink);
+    background: #fff;
+    border: 1.5px solid #d6d9f2;
+    font-size: .9rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0e1230; --card: #171c40; --text: #aab2d8; --ink: #eef0ff; --navy: #b9c2ff; --orange-soft: #3a2314; --orange-line: #7a4620; }
+    body { background: #0b0f27; }
+    .icon { background: #171c40; }
+    .secondary { background: transparent; border-color: #343b73; }
+  }
+</style>
+</head>
+<body>
+  <main class="card">
+    <span class="badge">Registration unavailable</span>
+
+    <div class="icon" aria-hidden="true">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f2600c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="10" width="16" height="11" rx="2.5"/>
+          <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+          <circle cx="12" cy="15.5" r="1" fill="#f2600c"/>
+        </svg>
+      </span>
+    </div>
+
+    <h1>Applications are currently closed</h1>
+    <p>New applicant accounts cannot be created at the moment. Please check the current intake details below and return when the next published application window opens.</p>
+
+    <a class="btn primary" href="login_student-portal.php">Go to login</a>
+    <a class="btn secondary" href="index.php">Visit main website</a>
+  </main>
+<script>
+  // Dirisha likifunguliwa kwenye dashboard, peleka moja kwa moja kwenye Neon_Orbit_Login.html
+  (function () {
+    function check() {
+      fetch('admission-window.php?t=' + Date.now(), { cache: 'no-store' })
+        .then(function (r) { return r.json(); })
+        .then(function (j) { if (j && j.open === true) location.replace('Neon_Orbit_Login.html'); })
+        .catch(function () {});
+    }
+    check();
+    setInterval(check, 5000);
+  })();
+</script>
+</body>
+</html>

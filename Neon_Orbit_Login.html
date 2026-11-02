@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<script>
+  // Dirisha likiwa limefungwa, onyesha applications-closed.html
+  fetch('admission-window.php?t=' + Date.now(), { cache: 'no-store' })
+    .then(function (r) { return r.json(); })
+    .then(function (j) { if (j && j.open === false) location.replace('applications-closed.html'); })
+    .catch(function () {});
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login / Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d2412;
+    --ink-soft: #1f3a25;
+    --line: #1b2f1f;
+    --glass: rgba(255, 255, 255, 0.18);
+    --accent: #0b1a0e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+  body {
+    font-family: 'Poppins', system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: var(--ink);
+    background: #2f5a2a;
+  }
+
+  /* ---------- Background ----------
+     Picha halisi ya mpunga: weka faili liitwe  rice.jpg  kwenye folder moja na login.html.
+     Kama faili halipo, manyasi yaliyochorwa yanatumika kama mbadala. */
+  .scene {
+    position: fixed; inset: 0; z-index: -1;
+    background-color: #2f5a2a;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .scene svg { width: 100%; height: 100%; display: block; }
+  .scene.has-photo svg { display: none; }
+  .scene.has-photo { background-size: cover; background-position: center; }
+  /* kivuli chepesi ili maandishi yasomeke juu ya picha */
+  .scene.has-photo::after { content: ''; position: absolute; inset: 0; background: rgba(0, 20, 5, 0.18); }
+
+  /* ---------- Card ---------- */
+  .card {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    border-radius: 22px;
+    border: 1.5px solid rgba(255, 255, 255, 0.75);
+    background: var(--glass);
+    backdrop-filter: blur(22px) saturate(1.2);
+    -webkit-backdrop-filter: blur(22px) saturate(1.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    padding: 42px 34px 30px;
+    transition: height 0.45s ease;
+  }
+
+  .close {
+    position: absolute;
+    top: 0; right: 0;
+    width: 46px; height: 44px;
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    border-bottom-left-radius: 18px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background 0.25s;
+  }
+  .close:hover { background: #1c3a22; }
+  .close svg { width: 20px; height: 20px; }
+
+  /* ---------- Panels (login / register) ---------- */
+  .panel {
+    display: none;
+  }
+  .panel.active {
+    display: block;
+    animation: panelIn 0.5s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(16px) scale(.98); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 26px;
+  }
+
+  /* ---------- Animated inputs ---------- */
+  .field {
+    position: relative;
+    height: 52px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid var(--line);
+  }
+  /* underline that sweeps across on focus */
+  .field::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 100%; height: 2px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
+  }
+  .field:focus-within::after { transform: scaleX(1); }
+
+  .field input {
+    width: 100%; height: 100%;
+    background: transparent;
+    border: none; outline: none;
+    font: 500 0.95rem 'Poppins', sans-serif;
+    color: var(--ink);
+    padding: 14px 32px 0 0;
+  }
+  .field input:-webkit-autofill,
+  .field input:-webkit-autofill:hover,
+  .field input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset;
+    box-shadow: 0 0 0 1000px transparent inset;
+    background-color: transparent !important;
+    background-image: none !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: background-color 9999s ease-in-out 0s;
+    -webkit-text-fill-color: var(--ink);
+    caret-color: var(--ink);
+  }
+  .field label {
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    pointer-events: none;
+    transform-origin: left;
+    transition: top 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  }
+  /* label floats up when focused or filled */
+  .field input:focus ~ label,
+  .field input:not(:placeholder-shown) ~ label {
+    top: 9px;
+    transform: translateY(0) scale(0.8);
+    color: var(--ink);
+    text-shadow: 0 1px 2px rgba(0,0,0,.25);
+  }
+  .field .icon {
+    position: absolute;
+    right: 2px; top: 50%;
+    width: 18px; height: 18px;
+    transform: translateY(-40%);
+    color: var(--ink);
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  .field:focus-within .icon {
+    color: var(--ink);
+    transform: translateY(-40%) scale(1.2) rotate(-6deg);
+  }
+  .field.error { border-bottom-color: #b3261e; animation: shake 0.35s; }
+  @keyframes shake {
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+  }
+
+  /* ---------- Options row ---------- */
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    font-weight: 500;
+    margin: 4px 0 20px;
+    color: var(--ink);
+  }
+  .check { display: flex; align-items: center; gap: 7px; cursor: pointer; }
+  .check input { accent-color: var(--accent); width: 14px; height: 14px; }
+  .row a { color: var(--ink); text-decoration: none; }
+  .row a:hover { text-decoration: underline; }
+
+  /* ---------- Button + spinner ---------- */
+  .btn {
+    position: relative;
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    font: 600 0.95rem 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn:hover { background: #17331c; }
+  .btn:active { transform: scale(0.98); }
+  .btn:disabled { cursor: not-allowed; background: #17331c; }
+
+  .spinner {
+    display: none;
+    width: 20px; height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  .btn.loading .spinner { display: block; }
+  .btn.success { background: #1f7a35; }
+  .btn.fail { background: #a3231b; animation: shake 0.35s; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- Extra animations: inputs + buttons ---------- */
+  /* inputs: slide in one by one, lift + glow when focused */
+  .panel.active .field,
+  .panel.active .row,
+  .panel.active .btn { animation: itemIn 0.55s cubic-bezier(.2,.8,.2,1) backwards; }
+  .panel.active .field:nth-of-type(1) { animation-delay: 0.10s; }
+  .panel.active .field:nth-of-type(2) { animation-delay: 0.18s; }
+  .panel.active .field:nth-of-type(3) { animation-delay: 0.26s; }
+  .panel.active .row { animation-delay: 0.32s; }
+  .panel.active .btn { animation-delay: 0.38s; }
+  .panel.active .btn.fail { animation: shake 0.35s; }
+  .panel.active .field.error { animation: shake 0.35s; }
+  @keyframes itemIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .field { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .field:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 14px -10px rgba(13, 36, 18, 0.6);
+  }
+  .field:hover .icon { transform: translateY(-40%) scale(1.15); }
+
+  /* buttons: lift, glow, light sweep, press */
+  .btn { overflow: hidden; transition: background 0.25s, transform 0.2s ease, box-shadow 0.25s ease; }
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -75%;
+    width: 50%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+    transform: skewX(-20deg);
+    pointer-events: none;
+  }
+  .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(11, 26, 14, 0.45);
+  }
+  .btn:hover:not(:disabled)::before { left: 130%; transition: left 0.7s ease; }
+  .btn:active:not(:disabled) { transform: translateY(0) scale(0.97); box-shadow: 0 3px 8px rgba(11, 26, 14, 0.4); }
+  .close { transition: background 0.25s, transform 0.3s ease; }
+  .close:hover { transform: rotate(90deg); }
+
+  /* ---------- Footer link ---------- */
+  .switch {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #fff;
+  }
+  .switch a {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .switch a:hover { text-decoration: underline; }
+
+  .msg {
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 500;
+    min-height: 18px;
+    margin-bottom: 8px;
+    color: #7a1510;
+  }
+  .msg.ok { color: #0f4d1f; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    .spinner { animation-duration: 1s !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scene" id="scene">
+  <svg id="grassSvg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0"    stop-color="#6f8f9c"/>
+        <stop offset="0.28" stop-color="#b9a597"/>
+        <stop offset="0.48" stop-color="#e9a679"/>
+        <stop offset="0.62" stop-color="#d9a06f"/>
+        <stop offset="1"    stop-color="#8a8a4a"/>
+      </linearGradient>
+      <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0"   stop-color="#ffd2a0" stop-opacity="0.95"/>
+        <stop offset="0.5" stop-color="#f6b57f" stop-opacity="0.45"/>
+        <stop offset="1"   stop-color="#f6b57f" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="field" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0"   stop-color="#8f8f4a"/>
+        <stop offset="0.35" stop-color="#5e8a3a"/>
+        <stop offset="1"   stop-color="#1e4a22"/>
+      </linearGradient>
+      <filter id="b10" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="10"/></filter>
+      <filter id="b5"  x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="4.5"/></filter>
+      <filter id="b2"  x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.6"/></filter>
+    </defs>
+    <rect width="1600" height="900" fill="url(#sky)"/>
+    <ellipse cx="800" cy="470" rx="760" ry="300" fill="url(#sun)"/>
+    <g id="bokeh" filter="url(#b10)" opacity="0.55"></g>
+    <rect y="520" width="1600" height="380" fill="url(#field)" filter="url(#b10)"/>
+    <g id="gFar"  filter="url(#b10)"></g>
+    <g id="gMid"  filter="url(#b5)"></g>
+    <g id="gNear" filter="url(#b2)"></g>
+    <g id="gEdge"></g>
+  </svg>
+</div>
+
+<div class="card">
+  <button class="close" type="button" aria-label="Funga" onclick="history.back()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+  </button>
+
+  <!-- ================= LOGIN ================= -->
+  <form id="loginForm" class="panel active" novalidate>
+    <h2>Login</h2>
+
+    <div class="field">
+      <input type="email" id="loginEmail" name="email" placeholder=" " required autocomplete="email">
+      <label for="loginEmail">Email</label>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+    </div>
+
+    <div class="field">
+      <input type="password" id="loginPass" name="password" placeholder=" " required autocomplete="current-password">
+      <label for="loginPass">Password</label>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+    </div>
+
+    <div class="row">
+      <label class="check"><input type="checkbox" name="remember"> Remember me</label>
+      <a href="#">Forgot Password?</a>
+    </div>
+
+    <div class="msg" id="loginMsg"></div>
+
+    <button class="btn" type="submit">
+      <span class="spinner"></span>
+      <span class="label">Login</span>
+    </button>
+
+    <p class="switch">Don't have an account? <a data-go="register">Register</a></p>
+  </form>
+
+  <!-- ================= REGISTER ================= -->
+  <form id="registerForm" class="panel" novalidate>
+    <h2>Register</h2>
+
+    <div class="field">
+      <input type="text" id="regUser" name="fullname" placeholder=" " required autocomplete="name">
+      <label for="regUser">Full name</label>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+    </div>
+
+    <div class="field">
+      <input type="email" id="regEmail" name="email" placeholder=" " required autocomplete="email">
+      <label for="regEmail">Email</label>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+    </div>
+
+    <div class="field">
+      <input type="password" id="regPass" name="password" placeholder=" " required autocomplete="new-password">
+      <label for="regPass">Password</label>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+    </div>
+
+    <div class="row">
+      <label class="check"><input type="checkbox" id="terms" name="terms"> Agree to terms &amp; conditions</label>
+    </div>
+
+    <div class="msg" id="regMsg"></div>
+
+    <button class="btn" type="submit">
+      <span class="spinner"></span>
+      <span class="label">Register</span>
+    </button>
+
+    <p class="switch">Already have an account? <a data-go="login">Login</a></p>
+  </form>
+</div>
+
+<script>
+
+  /* ---- Picha halisi ya mpunga (rice.jpg) ---- */
+  (function loadRice() {
+    const img = new Image();
+    img.onload = () => {
+      const sc = document.getElementById('scene');
+      sc.style.backgroundImage = "url('rice.jpg')";
+      sc.classList.add('has-photo');
+    };
+    img.src = 'rice.jpg';
+  })();
+
+  /* ---- Mbadala: chora manyasi (scene) ---- */
+  (function drawGrass() {
+    let seed = 7;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const NS = 'http://www.w3.org/2000/svg';
+    const mk = (n, a) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); return e; };
+    const H = 900;
+
+    function blade(g, x, h, lean, w, color, op) {
+      const tx = x + lean, ty = H - h;
+      const cx = x + lean * 0.15, cy = H - h * 0.62;
+      const d = `M${x},${H+10} Q${cx},${cy} ${tx},${ty} Q${cx + w},${cy} ${x + w},${H+10} Z`;
+      g.appendChild(mk('path', { d, fill: color, opacity: op }));
+      return { tx, ty };
+    }
+    const greens = ['#2f5f2a','#3c7030','#4d8238','#5f9040','#7aa04a','#1f4a22','#8aa84c'];
+    const pick = a => a[Math.floor(rnd() * a.length)];
+
+    // bokeh juu
+    const bk = document.getElementById('bokeh');
+    for (let i = 0; i < 14; i++) {
+      bk.appendChild(mk('circle', { cx: rnd()*1600, cy: 300 + rnd()*260, r: 18 + rnd()*40, fill: '#ffd9a8', opacity: 0.15 + rnd()*0.25 }));
+    }
+    // mbali (blur kubwa)
+    const far = document.getElementById('gFar');
+    for (let i = 0; i < 170; i++) blade(far, rnd()*1650 - 25, 150 + rnd()*200, (rnd()-.5)*50, 14 + rnd()*14, pick(greens), 0.85);
+    // kati
+    const mid = document.getElementById('gMid');
+    for (let i = 0; i < 120; i++) blade(mid, rnd()*1650 - 25, 120 + rnd()*260, (rnd()-.5)*70, 10 + rnd()*12, pick(greens), 0.9);
+    // karibu
+    const near = document.getElementById('gNear');
+    for (let i = 0; i < 70; i++) blade(near, rnd()*1650 - 25, 90 + rnd()*220, (rnd()-.5)*90, 9 + rnd()*10, pick(greens), 0.95);
+
+    // manyasi marefu pembeni (kushoto na kulia) yenye mbegu, kama kwenye picha ya mwanzo
+    const edge = document.getElementById('gEdge');
+    function stalk(x, h, lean, color) {
+      const t = blade(edge, x, h, lean, 5, color, 1);
+      for (let k = 0; k < 7; k++) {
+        const f = k / 7;
+        const px = t.tx - lean * f * 0.35 + (k % 2 ? 5 : -5);
+        const py = t.ty + 8 + k * 11;
+        edge.appendChild(mk('ellipse', { cx: px, cy: py, rx: 3.2, ry: 8, fill: '#c8b25a', opacity: 0.9, transform: `rotate(${(k%2?18:-18)} ${px} ${py})` }));
+      }
+    }
+    for (let i = 0; i < 9; i++) stalk(-20 + rnd()*150, 380 + rnd()*260, 30 + rnd()*50, '#6c8a3c');
+    for (let i = 0; i < 9; i++) stalk(1470 + rnd()*150, 330 + rnd()*260, -(30 + rnd()*50), '#6c8a3c');
+    for (let i = 0; i < 40; i++) blade(edge, (i % 2 ? rnd()*220 : 1380 + rnd()*240), 120 + rnd()*200, (rnd()-.5)*60, 10, pick(greens), 1);
+  })();
+
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
+
+  /* ---- Switch between Login and Register ---- */
+  document.querySelectorAll('[data-go]').forEach(link => {
+    link.addEventListener('click', () => {
+      const toRegister = link.dataset.go === 'register';
+      loginForm.classList.toggle('active', !toRegister);
+      registerForm.classList.toggle('active', toRegister);
+    });
+  });
+
+  const emailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  function flagError(input) {
+    const f = input.closest('.field');
+    f.classList.remove('error');
+    void f.offsetWidth;            // restart the shake animation
+    f.classList.add('error');
+    input.addEventListener('input', () => f.classList.remove('error'), { once: true });
+  }
+
+  /* ---- Mawasiliano na PHP (JSON) ---- */
+  const LOGIN_URL    = 'login-admission-system.php';
+  const REGISTER_URL = 'register.php';
+  const HOME_URL     = 'dashboard-admission-system.php';
+
+  async function postJSON(url, payload) {
+    const r = await fetch(url, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    return r.json();            // { ok, message, redirect? }
+  }
+
+  /* ---- Spinner angalau sekunde 2, huku ombi la server likiendelea ---- */
+  function runWithSpinner(btn, doneText, request, onResult) {
+    const label = btn.querySelector('.label');
+    const original = label.textContent;
+    btn.disabled = true;
+    btn.classList.add('loading');
+    label.textContent = 'Please wait...';
+
+    const wait2s = new Promise(res => setTimeout(res, 2000));   // <-- sekunde 2
+    const call = request().catch(() => ({ ok: false, message: 'Hitilafu ya server. Hakikisha PHP na MySQL zinafanya kazi.', server: true }));
+
+    Promise.all([call, wait2s]).then(([d]) => {
+      btn.classList.remove('loading');
+      btn.classList.add(d.ok ? 'success' : 'fail');
+      label.textContent = d.ok ? doneText : 'Imeshindikana';
+      onResult(d);
+      setTimeout(() => {
+        btn.classList.remove('success', 'fail');
+        btn.disabled = false;
+        label.textContent = original;
+      }, 1400);
+    });
+  }
+
+  /* ---- Login ---- */
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail');
+    const pass  = document.getElementById('loginPass');
+    const msg   = document.getElementById('loginMsg');
+    msg.textContent = ''; msg.classList.remove('ok');
+
+    let bad = false;
+    if (!emailOk(email.value.trim())) { flagError(email); bad = true; }
+    if (pass.value.length < 1)        { flagError(pass);  bad = true; }
+    if (bad) { msg.textContent = 'Email au neno siri sio sahihi.'; return; }
+
+    runWithSpinner(
+      loginForm.querySelector('.btn'),
+      'Success!',
+      () => postJSON(LOGIN_URL, { email: email.value.trim(), password: pass.value }),
+      d => {
+        if (d.ok) {
+          msg.classList.add('ok');
+          msg.textContent = 'Umeingia kikamilifu.';
+          setTimeout(() => { window.location.href = d.redirect || HOME_URL; }, 700);
+        } else if (d.server || !/incorrect|enter your email/i.test(d.message || '')) {
+          msg.textContent = d.message || 'Imeshindikana. Jaribu tena.';   // mfano: akaunti ya admin, hitilafu ya server
+        } else {
+          msg.textContent = 'Email au neno siri sio sahihi.';
+          flagError(email); flagError(pass);
+        }
+      }
+    );
+  });
+
+  /* ---- Register ---- */
+  registerForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const user  = document.getElementById('regUser');
+    const email = document.getElementById('regEmail');
+    const pass  = document.getElementById('regPass');
+    const terms = document.getElementById('terms');
+    const msg   = document.getElementById('regMsg');
+    msg.textContent = ''; msg.classList.remove('ok');
+
+    let bad = false;
+    if (user.value.trim().split(/\s+/).filter(Boolean).length < 2) { flagError(user); bad = true; }
+    if (!emailOk(email.value.trim()))  { flagError(email); bad = true; }
+    if (pass.value.length < 6)         { flagError(pass);  bad = true; }
+    if (bad) { msg.textContent = 'Weka majina yako kamili, email sahihi, na password angalau herufi 6.'; return; }
+    if (!terms.checked) { msg.textContent = 'Kubali terms & conditions kwanza.'; return; }
+
+    runWithSpinner(
+      registerForm.querySelector('.btn'),
+      'Done!',
+      () => postJSON(REGISTER_URL, { name: user.value.trim(), email: email.value.trim(), password: pass.value }),
+      d => {
+        if (d.ok) {
+          msg.classList.add('ok');
+          msg.textContent = 'Akaunti imeundwa. Sasa ingia.';
+          const em = email.value.trim();
+          setTimeout(() => {
+            registerForm.reset();
+            document.getElementById('loginEmail').value = em;      // email ijazwe kwenye login
+            registerForm.classList.remove('active');
+            loginForm.classList.add('active');
+            msg.textContent = '';
+          }, 1100);
+        } else {
+          msg.textContent = d.message || 'Imeshindikana. Jaribu tena.';
+          if (/email/i.test(d.message || '')) flagError(email);
+        }
+      }
+    );
+  });
+
+  /* ---- Tayari ameingia? Mpeleke moja kwa moja ---- */
+  fetch('me.php', { credentials: 'same-origin' }).then(r => r.json())
+    .then(j => { if (j && j.ok && j.user && j.user.role === 'user') window.location.href = HOME_URL; })
+    .catch(() => {});
+</script>
+</body>
+</html>

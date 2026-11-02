@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About Dersane House</title>
+<meta name="description" content="Who Dersane House is, what we stand for and a short history of our house.">
+<style>
+  :root{
+    --bg:#e3e8ef; --ink:#27324a; --ink-2:#5d6985; --accent:#c98a0b; --navy:#102035;
+    --hi:#ffffff; --lo:#b9c2d3;
+    --raise:10px 10px 22px var(--lo), -10px -10px 22px var(--hi);
+    --raise-s:6px 6px 14px var(--lo), -6px -6px 14px var(--hi);
+    --press:inset 6px 6px 13px var(--lo), inset -6px -6px 13px var(--hi);
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- HERO: picha ya Dersane nyuma, maandishi juu yake ---------- */
+  .hero{
+    position:relative; min-height:min(76vh,620px); display:flex; align-items:center; justify-content:center; text-align:center;
+    color:#fff; padding:90px 22px 150px; overflow:hidden;
+    background:
+      linear-gradient(180deg,rgba(10,21,48,.72) 0%,rgba(16,32,53,.62) 55%,rgba(16,32,53,.92) 100%),
+      url("image1.png") center/cover no-repeat;
+  }
+  .hero-inner{max-width:780px}
+  .logo{width:92px;height:92px;border-radius:24px;object-fit:cover;margin:0 auto 22px;border:3px solid rgba(255,255,255,.35);box-shadow:0 12px 30px rgba(0,0,0,.45)}
+  .tag{display:inline-block;font-size:12.5px;letter-spacing:2.4px;text-transform:uppercase;color:#ffcf6b;font-weight:700;margin-bottom:14px}
+  h1{font-family:"Times New Roman",serif;font-size:clamp(2.4rem,7vw,4.4rem);letter-spacing:3px;line-height:1.1;text-shadow:0 4px 22px rgba(0,0,0,.5)}
+  .hero p{margin:18px auto 0;max-width:60ch;font-size:1.1rem;color:rgba(255,255,255,.88);text-shadow:0 2px 12px rgba(0,0,0,.5)}
+
+  /* ---------- Neumorphism ---------- */
+  main{max-width:1080px;margin:-90px auto 0;padding:0 22px 40px;position:relative;z-index:2}
+  .panel{background:var(--bg);border-radius:30px;box-shadow:var(--raise);padding:38px 36px}
+  .panel + .panel, .panel + .grid, .grid + .panel{margin-top:34px}
+  h2{font-family:"Times New Roman",serif;font-size:clamp(1.6rem,3.5vw,2.1rem);color:var(--navy);letter-spacing:1px;margin-bottom:6px}
+  .rule{width:56px;height:5px;border-radius:5px;background:var(--accent);box-shadow:var(--press);margin:10px 0 22px}
+  .lead{color:var(--ink-2);max-width:70ch}
+
+  .grid{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .tile{background:var(--bg);border-radius:26px;box-shadow:var(--raise-s);padding:28px 24px;transition:box-shadow .3s,transform .3s}
+  .tile:hover{box-shadow:var(--press);transform:translateY(1px)}
+  .ico{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;margin-bottom:16px;box-shadow:var(--press);font-size:24px}
+  .tile h3{color:var(--navy);font-size:1.08rem;margin-bottom:6px}
+  .tile p{font-size:.94rem;color:var(--ink-2)}
+
+  /* Historia fupi */
+  .timeline{position:relative;display:grid;gap:26px;margin-top:8px;padding-left:34px}
+  .timeline::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:6px;border-radius:6px;box-shadow:var(--press)}
+  .step{position:relative;background:var(--bg);border-radius:22px;box-shadow:var(--raise-s);padding:22px 24px}
+  .step::before{content:"";position:absolute;left:-34px;top:26px;width:24px;height:24px;border-radius:50%;background:var(--bg);box-shadow:var(--raise-s)}
+  .step::after{content:"";position:absolute;left:-27px;top:33px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+  .step small{color:var(--accent);font-weight:700;letter-spacing:1.4px;text-transform:uppercase;font-size:12px}
+  .step h3{color:var(--navy);font-size:1.1rem;margin:2px 0 4px}
+  .step p{color:var(--ink-2);font-size:.95rem}
+
+  /* Kanuni */
+  .rules{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));list-style:none;padding:0;margin-top:6px}
+  .rules li{padding:14px 18px;border-radius:18px;box-shadow:var(--press);font-size:.95rem;color:var(--ink-2)}
+  .rules li b{color:var(--navy)}
+
+  .btns{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px}
+  .btn{padding:14px 28px;border-radius:18px;font-weight:700;color:var(--navy);background:var(--bg);box-shadow:var(--raise-s);transition:box-shadow .25s,transform .25s;cursor:pointer;border:0;font-size:15px}
+  .btn:hover{box-shadow:var(--press)}
+  .btn:active{transform:scale(.98)}
+  .btn.main{color:#fff;background:linear-gradient(135deg,#16305a,#102035);box-shadow:8px 8px 18px var(--lo),-6px -6px 14px var(--hi)}
+
+  footer{text-align:center;color:var(--ink-2);font-size:13px;padding:26px 16px 36px}
+
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
+  .rv.in{opacity:1;transform:none}
+  @media(max-width:640px){.panel{padding:28px 20px;border-radius:24px}.hero{padding-bottom:130px}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <img class="logo" src="image3.png" alt="Dersane House logo">
+    <span class="tag">About us</span>
+    <h1>DERSANE HOUSE</h1>
+    <p>A home away from home where students learn, grow and succeed together &mdash; guided by respect, discipline and brotherhood.</p>
+  </div>
+</header>
+
+<main>
+
+  <section class="panel rv" id="who">
+    <h2>Who we are</h2>
+    <div class="rule"></div>
+    <p class="lead">Dersane House is a student house community built on a simple idea: studying is easier, and life is richer, when you live among people who support you. Every member belongs to a house led by an Imam and his assistants, with clear responsibilities, shared programs and a culture of mutual respect.</p>
+  </section>
+
+  <div class="grid" style="margin-top:34px">
+    <article class="tile rv"><div class="ico">📚</div><h3>Learn</h3><p>Shared study time, target books and readings that help every student reach their goals.</p></article>
+    <article class="tile rv"><div class="ico">🤝</div><h3>Grow</h3><p>Character is built daily through teamwork, kindness to neighbours and eating meals together.</p></article>
+    <article class="tile rv"><div class="ico">🏅</div><h3>Succeed</h3><p>House programs and follow-up keep each member focused, disciplined and accountable.</p></article>
+  </div>
+
+  <section class="panel rv" id="history">
+    <h2>Our short history</h2>
+    <div class="rule"></div>
+    <div class="timeline">
+      <div class="step"><small>The beginning</small><h3>A house with a purpose</h3><p>Dersane House started as a small group of students who chose to live and study together, sharing a room, a routine and a common goal.</p></div>
+      <div class="step"><small>Growing together</small><h3>Structure and leadership</h3><p>As more students joined, roles were set up &mdash; Imam, Assistant Imam, Accountant, program follow-up and cleanliness &mdash; so every member knew how to contribute.</p></div>
+      <div class="step"><small>Today</small><h3>An open and organised community</h3><p>Today we welcome new first-year students, place them in their houses and continue selecting Imams and assistants, with an online process for admissions and announcements.</p></div>
+    </div>
+  </section>
+
+  <section class="panel rv" id="values">
+    <h2>What we live by</h2>
+    <div class="rule"></div>
+    <ul class="rules">
+      <li><b>Respect</b> &mdash; your Imam, your neighbours and each other.</li>
+      <li><b>Cleanliness</b> &mdash; keep the house and every house item safe.</li>
+      <li><b>Unity</b> &mdash; follow house programs and eat meals together.</li>
+      <li><b>Good manners</b> &mdash; no abusive language, no unethical talk.</li>
+      <li><b>Order</b> &mdash; guests only after consulting the Imam.</li>
+      <li><b>Focus</b> &mdash; a calm house where everyone can study.</li>
+    </ul>
+    <div class="btns">
+      <a class="btn" href="#top">Back to top &uarr;</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>&copy; <span id="yr">2026</span> DERSANE HOUSE. All Rights Reserved.</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var els = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: .12 });
+    els.forEach(function (el) { io.observe(el); });
+  } else { els.forEach(function (el) { el.classList.add('in'); }); }
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>House Location | DERSANE HOUSE</title>
+<style>
+:root{--ink:#F4F6FB;--ink-2:rgba(244,246,251,.74);--gold:#F5A400;--glass:rgba(255,255,255,.10);--glass-2:rgba(255,255,255,.17);--edge:rgba(255,255,255,.26);--shadow:0 18px 44px rgba(3,9,24,.40)}
+*{box-sizing:border-box}
+html{background:#0b1830 linear-gradient(165deg,#0a1530 0%,#102035 40%,#2a2150 75%,#4a1f3d 100%) fixed;min-height:100%}
+body{margin:0;font-family:Arial,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden}
+body::before,body::after{content:"";position:fixed;z-index:0;border-radius:50%;filter:blur(70px);pointer-events:none;animation:drift 18s ease-in-out infinite}
+body::before{width:420px;height:420px;background:#2f63d0;opacity:.45;top:-120px;left:-100px}
+body::after{width:380px;height:380px;background:#f5a400;opacity:.22;bottom:-120px;right:-80px;animation-delay:-7s}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(36px,-28px)}}
+a{color:inherit;text-decoration:none}
+.glass,.header,.tabs,.year,footer{background:var(--glass);border:1px solid var(--edge);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.22)}
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:16px}
+.header{display:flex;align-items:center;gap:22px;padding:18px 26px;border-radius:24px}
+.header h1{margin:0 0 6px;font-family:"Times New Roman",serif;font-size:32px;letter-spacing:3px}
+.header p{margin:0;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-2)}
+.back{margin-left:auto;padding:10px 18px;border-radius:14px;background:var(--glass-2);border:1px solid var(--edge);font-size:14px;transition:background .2s,transform .2s;white-space:nowrap}
+.back:hover{background:rgba(255,255,255,.28);transform:translateY(-2px)}
+.intro{margin:26px 4px 18px;color:var(--ink-2);max-width:68ch;line-height:1.6}
+.tabs{display:inline-flex;gap:6px;padding:6px;border-radius:18px;margin-bottom:22px;flex-wrap:wrap}
+.tabs button{border:0;background:transparent;color:var(--ink-2);font:700 14px Arial,sans-serif;padding:11px 22px;border-radius:13px;cursor:pointer;transition:background .2s,color .2s}
+.tabs button:hover{background:var(--glass-2);color:#fff}
+.tabs button[aria-selected="true"]{background:linear-gradient(100deg,#f5a400,#e08a00);color:#1b1200}
+.panel{animation:up .5s ease both}
+.panel[hidden]{display:none}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.year-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.year{border-radius:22px;padding:22px;border-top:3px solid var(--gold)}
+.year h3{margin:0 0 14px;font-size:17px;letter-spacing:1px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.2)}
+.book{display:flex;align-items:center;gap:12px;padding:11px 12px;margin-bottom:10px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);transition:background .2s,transform .2s}
+.book:hover{background:var(--glass-2);transform:translateX(3px)}
+.bi{font-size:20px}
+.bn{flex:1;font-size:15px;line-height:1.35}
+.open{padding:8px 18px;border-radius:999px;background:linear-gradient(100deg,#f5a400,#e08a00);color:#1b1200;font-weight:700;font-size:13px;transition:filter .2s,transform .2s;white-space:nowrap}
+.open:hover{filter:brightness(1.1);transform:scale(1.05)}
+.open:focus-visible,.tabs button:focus-visible,.back:focus-visible{outline:3px solid #fff;outline-offset:2px}
+footer{margin:28px 0 8px;padding:16px;border-radius:20px;text-align:center;color:var(--ink-2);font-size:13px}
+@media(max-width:760px){.cols{grid-template-columns:1fr}}
+@media(max-width:640px){.header{flex-direction:column;text-align:center}.back{margin:0}.header h1{font-size:26px}.year-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
+.card{padding:22px;border-radius:24px;border-top:3px solid var(--gold);background:var(--glass);border:1px solid var(--edge);border-top:3px solid var(--gold);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.22)}
+.pg{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.pg li{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);transition:background .25s,transform .25s;opacity:0;animation:up .6s ease forwards;animation-delay:calc(var(--i)*55ms)}
+.pg li:hover{background:var(--glass-2);transform:translateX(4px)}
+.num{flex:none;width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-weight:700;color:#ffb21b;background:rgba(245,164,0,.18);border:1px solid rgba(245,164,0,.35)}
+.pn{flex:1;font-size:16px;font-weight:700}
+.pi{font-size:22px}
+@media(prefers-reduced-motion:reduce){.pg li{opacity:1}}
+.pg li a.go{margin-left:auto}
+.pg li{padding:12px 14px}
+.pn small{display:block;font-weight:400;font-size:12px;color:var(--ink-2);margin-top:2px}
+.sub{margin:0 0 14px;font-size:17px;letter-spacing:1px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.2)}
+.sub+.pg{margin-bottom:0}
+.gap{height:22px}
+.go{flex:none;padding:8px 18px;border-radius:999px;background:linear-gradient(100deg,#f5a400,#e08a00);color:#1b1200;font-weight:700;font-size:13px;white-space:nowrap;transition:filter .2s,transform .2s}
+.go:hover{filter:brightness(1.1);transform:scale(1.05)}
+.go:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.go+.go{margin-left:0}
+.hl{display:grid;gap:2px;margin:0;padding:0;list-style:none}
+.hl button{width:100%;text-align:left;display:flex;align-items:center;gap:12px;padding:10px 8px;border-radius:10px;background:none;border:0;color:var(--ink);font:inherit;cursor:pointer;transition:background .2s,color .2s}
+.hl button:hover{background:rgba(255,255,255,.08)}
+.hl button[aria-pressed="true"]{background:none;color:var(--gold)}
+.hl button[aria-pressed="true"] .hn small{color:rgba(245,164,0,.8)}
+.hl button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.hi{flex:none;width:26px;text-align:center;font-size:18px}
+.hn{flex:1;font-weight:700;font-size:16px}
+.hn small{display:block;font-weight:400;font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.tag{font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.16);color:var(--ink-2)}
+.map{width:100%;height:300px;border:0;border-radius:18px;background:rgba(255,255,255,.08);display:block}
+.det{margin:16px 0 0;display:grid;gap:8px}
+.det h2{margin:0;font-size:20px}
+.det p{margin:0;color:var(--ink-2);font-size:14.5px;line-height:1.5}
+.det b{color:#fff}
+.acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.cols{align-items:start}
+@media(min-width:761px){.cols>.card:last-child{position:sticky;top:16px}}
+.sub .sub{margin-left:12px}
+.sub{list-style:none;margin:2px 0 6px 18px;padding:0 0 0 12px;border-left:2px solid rgba(245,164,0,.45);display:grid;gap:2px}
+.sub[hidden]{display:none}
+.chev{margin-left:auto;font-size:18px;transition:transform .25s;color:var(--gold)}
+.grp .hn{font-size:16px}
+.grp[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.rg{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin:8px 4px 0;padding-top:4px}
+.rg:first-child{margin-top:0}
+.card{display:flex;flex-direction:column}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="header">
+    <div><h1>HOUSE LOCATION</h1><p>DERSANE HOUSE &middot; Directions &amp; addresses</p></div>
+    <a class="back" href="index.php#student-portal">&larr; Back to portal</a>
+</header>
+
+<p class="intro">Select a house to see where it is on the map and how to get there. Tap a city or area to show its houses.</p>
+
+<div class="cols">
+<section class="card" aria-label="Houses"><ul class="hl" id="list"></ul></section>
+<section class="card" aria-label="Map and details">
+    <iframe class="map" id="map" title="House map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="det">
+        <h2 id="dName"></h2>
+        <p id="dArea"></p>
+        <p id="dAddr"></p>
+        <p id="dContact"></p>
+        <div class="acts"><a class="open" id="dDir" href="#" target="_blank" rel="noopener noreferrer">Get directions</a></div>
+    </div>
+</section>
+</div>
+
+<footer>&copy; <span id="year"></span> DERSANE HOUSE. All Rights Reserved.</footer>
+</div>
+<script>
+/* ============================================================
+   HARIRI HAPA: mkoa -> eneo -> nyumba.
+   Kitu chenye "children" kinakuwa menu inayofichwa/kufunguka.
+   Kila nyumba (au eneo lisilo na nyumba ndani) ina: address, contact, query (si lazima).
+   query = neno la kutafuta kwenye ramani (au coordinates, mf. "-6.7924,39.2083").
+   ============================================================ */
+function H(name,extra){ var o={name:name,address:"",contact:"",query:""}; for(var k in (extra||{})) o[k]=extra[k]; return o; }
+var TREE = [
+  { name:"Dar es Salaam", query:"Dar es Salaam, Tanzania", children:[
+      { name:"Sinza", query:"Sinza, Dar es Salaam, Tanzania", children:[
+          H("Kilimanjaro",{query:"-6.780835,39.220511"}), H("Tanzanite",{query:"-6.781707,39.221134"}), H("Upendo"), H("Hekima")
+      ]},
+      H("Temeke"),
+      H("Kariakoo"),
+      { name:"Survey", query:"Survey, Dar es Salaam, Tanzania", children:[
+          H("Amani")
+      ]}
+  ]},
+  H("Dodoma"),
+  H("Arusha"),
+  H("Mwanza"),
+  H("Zanzibar")
+];
+
+var list=document.getElementById('list');
+var map=document.getElementById('map');
+var LEAVES=[], uid=0;
+function el(t,c,x){var e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;}
+
+function render(o){
+    var q=encodeURIComponent(o.query||o.address||o.name);
+    list.querySelectorAll('button[data-i]').forEach(function(b){b.setAttribute('aria-pressed',o.id!=null&&String(b.dataset.i)===String(o.id)?'true':'false');});
+    map.src='https://www.google.com/maps?q='+q+'&output=embed';
+    document.getElementById('dName').textContent=o.title;
+    document.getElementById('dArea').textContent=o.note||'';
+    document.getElementById('dAddr').textContent=o.address||'';
+    document.getElementById('dContact').textContent=o.contact?'Contact: '+o.contact:'';
+    document.getElementById('dDir').href='https://www.google.com/maps/dir/?api=1&destination='+q;
+}
+/* path = majina ya wazazi, mf. ["Dar es Salaam","Sinza"] */
+function buildNode(n,path,isTop){
+    var li=el('li');
+    var place=path.slice().reverse().join(', ');
+    if(n.children&&n.children.length){
+        var id='sub'+(uid++), t=el('button','grp'); t.type='button';
+        t.setAttribute('aria-expanded','false'); t.setAttribute('aria-controls',id);
+        t.appendChild(el('span','hi',isTop?'🏙️':'🏘️'));
+        var nm=el('span','hn',n.name);
+        nm.appendChild(el('small',null,n.children.length+(n.children.length===1?' house':' houses')+(place?' · '+place:'')));
+        t.appendChild(nm); t.appendChild(el('span','chev','▾'));
+        var sub=el('ul','sub'); sub.id=id; sub.hidden=true;
+        n.children.forEach(function(c){ sub.appendChild(buildNode(c,path.concat(n.name),false)); });
+        t.addEventListener('click',function(){
+            var open=sub.hidden; sub.hidden=!open; t.setAttribute('aria-expanded',String(open));
+            if(open) render({title:n.name,note:'Choose a house.',query:n.query||[n.name].concat(path.slice().reverse()).join(', ')+', Tanzania'});
+        });
+        li.appendChild(t); li.appendChild(sub); return li;
+    }
+    var idx=LEAVES.length;
+    var leaf={id:idx,title:n.name+' House',note:place?'Location: '+place:'',address:n.address,contact:n.contact,
+              query:n.query||(path.length?path.slice().reverse().join(', ')+', Tanzania':n.name+', Tanzania')};
+    LEAVES.push(leaf);
+    var b=el('button'); b.type='button'; b.dataset.i=idx; b.setAttribute('aria-pressed','false');
+    b.appendChild(el('span','hi','📍'));
+    var hn=el('span','hn',n.name); if(place) hn.appendChild(el('small',null,place));
+    b.appendChild(hn);
+    b.addEventListener('click',function(){render(leaf);});
+    li.appendChild(b); return li;
+}
+TREE.forEach(function(n){ list.appendChild(buildNode(n,[],true)); });
+render({title:'DERSANE houses',note:'Select a house from the list.',query:'Tanzania'});
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

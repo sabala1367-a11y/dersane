@@ -1,0 +1,6 @@
+<?php
+// Nakili faili hili kuwa config_student-portal.local.php na ubadilishe — ndipo config_student-portal.php inaposoma. (Si lazima.)
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'db-student_portal');
+define('DB_USER', 'root');
+define('DB_PASS', '');

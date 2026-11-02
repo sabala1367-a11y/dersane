@@ -1,0 +1,480 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Fomu ya Maombi Dersane</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky step rail on the left (desktop), compact progress bar on top (phone), one card per step. */
+:root{
+  --bg:#f2f6f5; --surface:#ffffff; --fg:#10211f; --muted:#566b67; --line:#d3dedb;
+  --accent:#0b5d5b; --accent-fg:#ffffff; --soft:#e3efed; --mark:#f0c02e;
+  --err:#b3261e; --ok:#17713f;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Public Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b1615; --surface:#122322; --fg:#e5f0ee; --muted:#95aba7; --line:#27403c;
+  --accent:#52c7ba; --accent-fg:#06201d; --soft:#173230; --mark:#e2b52c;
+  --err:#ff8f86; --ok:#62d69c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1615; --surface:#122322; --fg:#e5f0ee; --muted:#95aba7; --line:#27403c;
+  --accent:#52c7ba; --accent-fg:#06201d; --soft:#173230; --mark:#e2b52c;
+  --err:#ff8f86; --ok:#62d69c; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.55 var(--body);
+  padding-block:0 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto}
+header.top{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:end;justify-content:space-between;padding:28px 0 22px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.brand{font:700 13px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+.brand i{width:14px;height:14px;background:var(--mark);display:inline-block;border-radius:2px;transform:rotate(45deg)}
+h1{font:700 clamp(26px,4.4vw,38px)/1.1 var(--display);margin:10px 0 0;text-wrap:balance;letter-spacing:-.01em}
+.sub{color:var(--muted);max-width:46ch;margin:0}
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:36px;align-items:start}
+
+/* rail */
+.rail{position:sticky;top:20px}
+.rail ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.rail button{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:center;padding:9px 10px;border-radius:6px;cursor:pointer;color:var(--muted);font-weight:500}
+.rail button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.rail button[disabled]{cursor:default;opacity:.6}
+.rail .n{width:26px;height:26px;border:1.5px solid var(--line);border-radius:50%;display:grid;place-items:center;font:600 12px var(--body);font-variant-numeric:tabular-nums;color:var(--muted);background:var(--surface)}
+.rail li.done .n{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.rail li.current button{color:var(--fg);background:var(--soft)}
+.rail li.current .n{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 3px var(--soft)}
+.mobbar{display:none}
+
+/* card */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:clamp(18px,3.4vw,32px)}
+.card h2{font:700 24px/1.2 var(--display);margin:0 0 4px}
+.card .lead{color:var(--muted);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 18px}
+.full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field>label,.field>legend,fieldset.field>legend{font-weight:600;font-size:13.5px}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+legend{padding:0;margin-bottom:6px}
+.opt{font-weight:400;color:var(--muted)}
+input[type=text],input[type=tel],input[type=email],input[type=date],input[type=number],select,textarea{
+  font:inherit;color:var(--fg);background:var(--bg);border:1.5px solid var(--line);border-radius:6px;padding:10px 12px;width:100%;min-width:0}
+input[type=file]{font:inherit;color:var(--fg);width:100%;min-width:0;padding:8px;border:1.5px dashed var(--line);border-radius:6px;background:var(--bg)}
+textarea{min-height:84px;resize:vertical}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.hint{font-size:12.5px;color:var(--muted)}
+.err{font-size:12.5px;color:var(--err);min-height:0}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--err)}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choices label{display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:6px;padding:9px 14px;cursor:pointer;background:var(--bg);font-weight:500}
+.choices label:has(input:checked){border-color:var(--accent);background:var(--soft)}
+.choices input{accent-color:var(--accent)}
+.sec{font:600 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:10px 0 -4px;grid-column:1/-1;padding-top:14px;border-top:1px solid var(--line)}
+.sec:first-child{border-top:0;padding-top:0;margin-top:0}
+
+/* subjects */
+.subj{display:grid;gap:8px}
+.subj .row{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:8px}
+.subj .row span{display:none}
+
+/* nav */
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.btn{font:600 15px var(--body);border-radius:6px;padding:11px 22px;cursor:pointer;border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-fg)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn[hidden]{display:none}
+
+/* review */
+.rev{display:grid;gap:22px}
+.rev section{border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.rev h3{margin:0 0 8px;font:700 15px var(--display);display:flex;justify-content:space-between;gap:8px;align-items:center}
+.rev h3 button{all:unset;cursor:pointer;color:var(--accent);font:600 13px var(--body);text-decoration:underline}
+.rev h3 button:focus-visible{outline:2px solid var(--accent)}
+.rev dl{margin:0;display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:4px 14px}
+.rev dt{color:var(--muted)}
+.rev dd{margin:0;overflow-wrap:anywhere}
+.agree{display:flex;gap:10px;align-items:flex-start;margin-top:20px;padding:14px;background:var(--soft);border-radius:8px}
+.agree input{margin-top:4px;accent-color:var(--accent);width:18px;height:18px;flex:none}
+
+/* done */
+.done{text-align:left}
+.done .tick{width:44px;height:44px;border-radius:50%;background:var(--ok);color:var(--surface);display:grid;place-items:center;font-size:22px;margin-bottom:14px}
+.note{font-size:13px;color:var(--muted);border-left:3px solid var(--mark);padding:6px 12px;margin:18px 0 0}
+
+@media (max-width:820px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:18px}
+  .rail{display:none}
+  .mobbar{display:block}
+  .mobbar .t{display:flex;justify-content:space-between;font-weight:600;font-size:13px;margin-bottom:8px}
+  .mobbar .bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+  .mobbar .bar i{display:block;height:100%;background:var(--accent);transition:width .25s}
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .rev dl{grid-template-columns:minmax(0,1fr)}
+  .rev dt{margin-top:6px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+html:not(.ready) .wrap{visibility:hidden}
+</style>
+
+<div class="wrap">
+  <div id="st" class="card done" hidden style="margin-top:28px"></div>
+  <header class="top" id="top">
+    <div>
+      <div class="brand"><i></i>Dersane</div>
+      <h1>Fomu ya Maombi Dersane</h1>
+    </div>
+    <p class="sub">Tuma maombi kwa kujaza fomu hii kwa kufuata hatua sita. Unaweza kurudi nyuma wakati wowote.</p>
+  </header>
+
+  <div class="layout" id="lay">
+    <nav class="rail" aria-label="Hatua za maombi"><ol id="rail"></ol></nav>
+
+    <main>
+      <div class="mobbar" aria-hidden="true">
+        <div class="t"><span id="mobLabel"></span><span id="mobCount"></span></div>
+        <div class="bar"><i id="mobFill"></i></div>
+      </div>
+
+      <form id="app" class="card" novalidate>
+        <!-- 1 -->
+        <section data-step="0" data-title="Taarifa binafsi">
+          <h2>Taarifa binafsi</h2>
+          <p class="lead">Andika majina kama yanavyoonekana kwenye cheti chako cha kuzaliwa au kitambulisho.</p>
+          <div class="grid">
+            <div class="field"><label for="fn">Jina la kwanza</label><input id="fn" name="fn" type="text" required autocomplete="given-name"><span class="err"></span></div>
+            <div class="field"><label for="mn">Jina la kati <span class="opt">(si lazima)</span></label><input id="mn" name="mn" type="text" autocomplete="additional-name"><span class="err"></span></div>
+            <div class="field"><label for="ln">Jina la ukoo</label><input id="ln" name="ln" type="text" required autocomplete="family-name"><span class="err"></span></div>
+            <fieldset class="field"><legend>Jinsia</legend>
+              <div class="choices"><label><input type="radio" name="sex" value="Mwanamke" required>Mwanamke</label><label><input type="radio" name="sex" value="Mwanaume">Mwanaume</label></div><span class="err"></span></fieldset>
+            <div class="field"><label for="dob">Tarehe ya kuzaliwa</label><input id="dob" name="dob" type="date" required autocomplete="bday"><span class="hint">Umri wa chini ni miaka 16.</span><span class="err"></span></div>
+            <div class="field"><label for="nat">Uraia</label>
+              <select id="nat" name="nat" required><option value="">Chagua</option><option>Mtanzania</option><option>Mkenya</option><option>Mganda</option><option>Mrundi</option><option>Mnyarwanda</option><option>Nyingine</option></select><span class="err"></span></div>
+                        <div class="field"><label for="sn">Una mahitaji maalum?</label>
+              <select id="sn" name="sn" required><option value="">Chagua</option><option>Hapana</option><option>Ndiyo</option></select><span class="err"></span></div>
+            <div class="field" id="snBox" hidden><label for="snText">Eleza mahitaji yako</label><input id="snText" name="snText" type="text" disabled required><span class="err"></span></div>
+          </div>
+        </section>
+
+        <!-- 2 -->
+        <section data-step="1" data-title="Mawasiliano" hidden>
+          <h2>Mawasiliano</h2>
+          <p class="lead">Majibu ya maombi yatatumwa kwa simu na barua pepe utakazoandika hapa na kwenye akaunti yako ya maombi.</p>
+          <div class="grid">
+            <div class="field"><label for="tel">Namba ya simu</label><input id="tel" name="tel" type="tel" inputmode="tel" placeholder="0712 345 678" required pattern="(\+255|0)[67][0-9]{8}" data-msg="Tumia muundo wa 0712345678 au +255712345678." autocomplete="tel"><span class="err"></span></div>
+            <div class="field"><label for="mail">Barua pepe</label><input id="mail" name="mail" type="email" required autocomplete="email"><span class="err"></span></div>
+            <div class="field"><label for="reg">Mkoa unaoishi</label><select id="reg" name="reg" required></select><span class="err"></span></div>
+            <div class="field"><label for="dist">Wilaya</label><input id="dist" name="dist" type="text" required><span class="err"></span></div>
+                        <div class="sec">Mtu wa kuwasiliana naye dharura</div>
+            <div class="field"><label for="ecn">Jina kamili</label><input id="ecn" name="ecn" type="text" required><span class="err"></span></div>
+            <div class="field"><label for="ecr">Uhusiano</label><select id="ecr" name="ecr" required><option value="">Chagua</option><option>Mzazi</option><option>Mlezi</option><option>Ndugu</option><option>Mwenzi</option><option>Rafiki</option></select><span class="err"></span></div>
+            <div class="field"><label for="ect">Namba ya simu</label><input id="ect" name="ect" type="tel" inputmode="tel" required pattern="(\+255|0)[67][0-9]{8}" data-msg="Tumia muundo wa 0712345678 au +255712345678."><span class="err"></span></div>
+          </div>
+        </section>
+
+        <!-- 3 -->
+        <section data-step="2" data-title="Elimu" hidden>
+          <h2>Historia ya elimu</h2>
+          <p class="lead">Matokeo ya kidato cha nne ni lazima, kidato cha sita jaza kama utawiwa.</p>
+          <div class="grid">
+            <div class="sec">Kidato cha nne (CSEE)</div>
+            <div class="field full"><label for="cs">Jina la shule</label><input id="cs" name="cs" type="text" required><span class="err"></span></div>
+            <div class="field"><label for="ci">Namba ya mtihani</label><input id="ci" name="ci" type="text" placeholder="S0123/0456/2021" required pattern="[Ss][0-9]{4}/[0-9]{4}/[0-9]{4}" data-msg="Muundo ni S0123/0456/2021." autocapitalize="characters"><span class="err"></span></div>
+            <div class="field"><label for="cy">Mwaka wa kuhitimu</label><select id="cy" name="cy" required></select><span class="err"></span></div>
+            <div class="field full" id="subjField"><label id="subjLabel">Masomo na madaraja <span class="opt">(masomo manne)</span></label>
+              <div class="subj" id="subj" role="group" aria-labelledby="subjLabel"></div><span class="err"></span></div>
+            <div class="sec">Kidato cha sita (ACSEE) <span class="opt" style="text-transform:none;letter-spacing:0">— si lazima</span></div>
+            <div class="field full"><label for="as">Jina la shule</label><input id="as" name="as" type="text"><span class="err"></span></div>
+            <div class="field"><label for="ai">Namba ya mtihani</label><input id="ai" name="ai" type="text" placeholder="S0123/0456/2023" pattern="[Ss][0-9]{4}/[0-9]{4}/[0-9]{4}" data-msg="Muundo ni S0123/0456/2023."><span class="err"></span></div>
+            <div class="field"><label for="ac">Mchepuo</label><select id="ac" name="ac"><option value="">Chagua</option><option>PCM</option><option>PCB</option><option>PGM</option><option>CBG</option><option>EGM</option><option>HGL</option><option>HKL</option><option>HGK</option><option>Nyingine</option></select><span class="err"></span></div>
+          </div>
+        </section>
+
+        <!-- 4 -->
+        <section data-step="3" data-title="Kozi unayosoma" hidden>
+          <h2>Kozi unayosoma</h2>
+          <p class="lead">Andika kozi unayosoma, chuo unachosoma na ngazi ya masomo.</p>
+          <div class="grid">
+            <div class="field"><label for="course">Kozi unayosoma</label><input id="course" name="course" type="text" required placeholder="Mfano: Uhasibu"><span class="err"></span></div>
+            <div class="field"><label for="college">Chuo unachosoma</label><input id="college" name="college" type="text" required><span class="err"></span></div>
+            <fieldset class="field full"><legend>Ngazi ya masomo</legend>
+              <div class="choices" id="levels"><label><input type="radio" name="lvl" value="Cheti" required>Cheti</label><label><input type="radio" name="lvl" value="Stashahada">Stashahada</label><label><input type="radio" name="lvl" value="Shahada">Shahada</label></div><span class="err"></span></fieldset>
+                                                                      </div>
+        </section>
+
+        <!-- 5 -->
+        <section data-step="4" data-title="Ufadhili" hidden>
+          <h2>Ufadhili</h2>
+          <p class="lead">Tuambie nani atagharamia masomo yako na ulisikia wapi kuhusu Dersane.</p>
+          <div class="grid">
+            <div class="field"><label for="fund">Nani atagharamia masomo?</label><select id="fund" name="fund" required><option value="">Chagua</option><option>Mwenyewe au familia</option><option>Mkopo wa HESLB</option><option>Mwajiri</option><option>Mfadhili au taasisi</option></select><span class="err"></span></div>
+            <div class="field"><label for="src">Umesikia wapi Dersane?</label><select id="src" name="src"><option value="">Chagua</option><option>Rafiki au ndugu</option><option>Shuleni</option><option>Mitandao ya kijamii</option><option>Redio au TV</option><option>Maonesho ya vyuo</option></select><span class="err"></span></div>
+                                                          </div>
+        </section>
+
+        <!-- 6 -->
+        <section data-step="5" data-title="Kagua na tuma" hidden>
+          <h2>Kagua na tuma</h2>
+          <p class="lead">Hakikisha taarifa ni sahihi. Bonyeza “Hariri” kurekebisha sehemu yoyote.</p>
+          <div class="rev" id="rev"></div>
+          <div class="field">
+            <label class="agree" for="agree"><input id="agree" name="agree" type="checkbox" required><span>Nathibitisha kuwa taarifa nilizojaza ni za kweli, na naelewa kuwa taarifa za uongo zinaweza kusababisha maombi yangu kukataliwa.</span></label>
+            <span class="err"></span>
+          </div>
+        </section>
+
+        <div class="nav">
+          <button type="button" class="btn ghost" id="back">Rudi nyuma</button>
+          <button type="button" class="btn" id="next">Endelea</button>
+          <button type="submit" class="btn" id="send" hidden>Tuma maombi</button>
+        </div>
+      </form>
+
+      <div class="card done" id="done" hidden>
+        <div class="tick" aria-hidden="true">✓</div>
+        <h2>Maombi yametumwa</h2>
+        <p class="lead" id="doneMsg"></p>
+        <button class="btn ghost" type="button" id="copy">Nakili muhtasari</button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+(function(){
+  var STEPS=["Taarifa binafsi","Mawasiliano","Elimu","Kozi unayosoma","Ufadhili","Kagua na tuma"];
+  var REGIONS=["Arusha","Dar es Salaam","Dodoma","Geita","Iringa","Kagera","Katavi","Kigoma","Kilimanjaro","Lindi","Manyara","Mara","Mbeya","Morogoro","Mtwara","Mwanza","Njombe","Pemba Kaskazini","Pemba Kusini","Pwani","Rukwa","Ruvuma","Shinyanga","Simiyu","Singida","Songwe","Tabora","Tanga","Unguja Kaskazini","Unguja Kusini","Unguja Mjini Magharibi"];
+  var SUBJECTS=["Kiswahili","English Language","Hisabati","Fizikia","Kemia","Biolojia","Jiografia","Historia","Uraia","Book-keeping","Commerce","Kilimo","Computer Studies"];
+  var GRADES=["A","B","C","D","F"];
+  var KEY="fomu-maombi-rasimu-v1";
+  var form=document.getElementById("app"), secs=[].slice.call(form.querySelectorAll("section[data-step]"));
+  var cur=0, maxReached=0;
+
+  function $(id){return document.getElementById(id)}
+  function opts(sel,list,ph){sel.innerHTML="";var o=document.createElement("option");o.value="";o.textContent=ph||"Chagua";sel.appendChild(o);list.forEach(function(t){var e=document.createElement("option");e.value=t;e.textContent=t;sel.appendChild(e)})}
+
+  /* populate */
+  opts($("reg"),REGIONS);
+  var yrs=[];for(var y=2026;y>=2000;y--)yrs.push(String(y));opts($("cy"),yrs);
+  var subj=$("subj");
+  for(var i=0;i<4;i++){
+    var row=document.createElement("div");row.className="row";
+    row.innerHTML='<select name="sub'+i+'" aria-label="Somo '+(i+1)+'"></select><select name="gr'+i+'" aria-label="Daraja la somo '+(i+1)+'"></select>';
+    subj.appendChild(row);
+    opts(row.children[0],SUBJECTS,"Somo "+(i+1));opts(row.children[1],GRADES,"Daraja");
+  }
+
+  /* rail */
+  var rail=$("rail");
+  STEPS.forEach(function(t,i){
+    var li=document.createElement("li");
+    li.innerHTML='<button type="button" data-go="'+i+'"><span class="n">'+(i+1)+'</span><span>'+t+'</span></button>';
+    rail.appendChild(li);
+  });
+  rail.addEventListener("click",function(e){var b=e.target.closest("button");if(b&&!b.disabled)show(+b.dataset.go)});
+
+  function show(n){
+    cur=n;maxReached=Math.max(maxReached,n);
+    secs.forEach(function(s,i){s.hidden=i!==n});
+    [].forEach.call(rail.children,function(li,i){
+      li.className=i===n?"current":(i<n?"done":"");
+      var b=li.firstChild;b.disabled=i>maxReached;
+      if(i===n)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current");
+      li.querySelector(".n").textContent=i<n?"✓":(i+1);
+    });
+    $("mobLabel").textContent=STEPS[n];$("mobCount").textContent="Hatua "+(n+1)+" ya "+STEPS.length;
+    $("mobFill").style.width=((n+1)/STEPS.length*100)+"%";
+    $("back").style.visibility=n===0?"hidden":"visible";
+    $("next").hidden=n===STEPS.length-1;$("send").hidden=n!==STEPS.length-1;
+    if(n===STEPS.length-1)buildReview();
+    var h=secs[n].querySelector("h2");h.tabIndex=-1;h.focus({preventScroll:true});
+    window.scrollTo({top:0,behavior:"smooth"});
+    save();
+  }
+
+  /* validation */
+  function setErr(el,msg){
+    var f=el.closest(".field");if(!f)return;
+    f.classList.toggle("invalid",!!msg);
+    var e=f.querySelector(".err");if(e)e.textContent=msg||"";
+    if(msg)el.setAttribute("aria-invalid","true");else el.removeAttribute("aria-invalid");
+  }
+  function msgFor(el){
+    var v=el.validity;
+    if(v.valueMissing)return el.type==="checkbox"?"Lazima ukubali ili kuendelea.":(el.type==="file"?"Chagua faili.":"Sehemu hii inahitajika.");
+    if(v.patternMismatch)return el.dataset.msg||"Muundo si sahihi.";
+    if(v.typeMismatch)return el.type==="email"?"Weka barua pepe sahihi, mfano jina@mfano.com.":"Thamani si sahihi.";
+    return el.validationMessage;
+  }
+  function custom(el){
+    if(el.name==="dob"&&el.value){
+      var d=new Date(el.value),n=new Date(),a=n.getFullYear()-d.getFullYear();
+      if(n<new Date(n.getFullYear(),d.getMonth(),d.getDate()))a--;
+      if(isNaN(a)||a<16)return "Mwombaji lazima awe na miaka 16 au zaidi.";
+      if(a>80)return "Tarehe ya kuzaliwa si sahihi.";
+    }
+    return "";
+  }
+  function validateStep(n){
+    var sec=secs[n],bad=null;
+    [].forEach.call(sec.querySelectorAll("input,select,textarea"),function(el){
+      if(el.closest("#subj")||el.disabled)return;
+      var m=el.checkValidity()?custom(el):msgFor(el);
+      if(el.type==="radio"&&!m){setErr(el,"");return}
+      setErr(el,m);
+      if(m&&!bad)bad=el;
+    });
+    if(n===2){
+      var rows=[].slice.call(subj.children),ok=0,half=false,names={},dup=false;
+      rows.forEach(function(r){
+        var s=r.children[0].value,g=r.children[1].value;
+        if(s&&g){ok++;if(names[s])dup=true;names[s]=1}else if(s||g)half=true;
+      });
+      var m=half?"Kamilisha somo na daraja lake kwenye kila safu.":dup?"Somo moja limechaguliwa mara mbili.":ok<4?"Weka masomo manne yenye madaraja.":"";
+      setErr(subj,m);
+      var host=$("subjField");host.classList.toggle("invalid",!!m);
+      if(m&&!bad)bad=subj.querySelector("select");
+    }
+    if(bad){bad.focus();return false}
+    return true;
+  }
+  form.addEventListener("input",function(e){
+    var el=e.target;
+    if(el.closest(".field")&&el.closest(".field").classList.contains("invalid")&&!el.closest("#subj")){
+      var m=el.checkValidity()?custom(el):msgFor(el);setErr(el,el.type==="radio"?"":m);
+    }
+    if(el.name==="sn")syncSN();
+    save();
+  });
+  form.addEventListener("change",function(){save()});
+  function syncSN(){
+    var on=$("sn").value==="Ndiyo";$("snBox").hidden=!on;$("snText").disabled=!on;
+    if(!on)$("snText").value="";
+  }
+  $("sn").addEventListener("change",syncSN);
+
+  $("next").addEventListener("click",function(){if(validateStep(cur))show(cur+1)});
+  $("back").addEventListener("click",function(){if(cur>0)show(cur-1)});
+
+  /* review */
+  function label(el){
+    var f=el.closest(".field"),l=f&&f.querySelector("label,legend");
+    if(!l)return el.name;
+    var c=l.cloneNode(true);[].forEach.call(c.querySelectorAll(".opt"),function(x){x.remove()});
+    return c.textContent.trim();
+  }
+  function groups(){
+    var out=[];
+    secs.slice(0,5).forEach(function(sec,i){
+      var items=[],seen={};
+      [].forEach.call(sec.querySelectorAll("input,select,textarea"),function(el){
+        if(!el.name||el.disabled||el.closest("#subj")||seen[el.name])return;
+        var v="";
+        if(el.type==="radio"){seen[el.name]=1;var c=form.querySelector('input[name='+el.name+']:checked');v=c?c.value:""}
+        else if(el.type==="file"){v=el.files[0]?el.files[0].name:""}
+        else v=el.value;
+        items.push([label(el),v||"—"]);
+      });
+      if(i===2){
+        var s=[].slice.call(subj.children).map(function(r){return r.children[0].value&&r.children[1].value?r.children[0].value+": "+r.children[1].value:""}).filter(Boolean);
+        var idx=items.findIndex(function(x){return x[0]==="Mwaka wa kuhitimu"});
+        items.splice(idx+1,0,["Masomo na madaraja",s.join(", ")||"—"]);
+      }
+      out.push({title:STEPS[i],step:i,items:items});
+    });
+    return out;
+  }
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function buildReview(){
+    $("rev").innerHTML=groups().map(function(g){
+      return '<section><h3>'+g.title+'<button type="button" data-edit="'+g.step+'">Hariri</button></h3><dl>'+
+        g.items.map(function(x){return '<dt>'+esc(x[0])+'</dt><dd>'+esc(x[1])+'</dd>'}).join("")+'</dl></section>';
+    }).join("");
+  }
+  $("rev").addEventListener("click",function(e){var b=e.target.closest("[data-edit]");if(b)show(+b.dataset.edit)});
+
+  /* submit */
+  function summaryText(){
+    return groups().map(function(g){return g.title.toUpperCase()+"\n"+g.items.map(function(x){return x[0]+": "+x[1]}).join("\n")}).join("\n\n");
+  }
+  // Unganisha hapa na seva yako: tuma `data` kwa API yako (fetch/POST) na urudishe Promise.
+  function submitApplication(data){return fetch("submit_application.php",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)}).then(function(r){return r.json()}).catch(function(){return{ok:false,message:"Imeshindikana kuwasiliana na seva. Jaribu tena."}})}
+
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    if(!validateStep(5))return;
+    for(var i=0;i<5;i++){if(!validateStep(i)){show(i);return}}
+    var data={};new FormData(form).forEach(function(v,k){data[k]=v instanceof File?v.name:v});
+    $("send").disabled=true;
+    submitApplication(data).then(function(res){
+      if(!res||!res.ok){alert((res&&res.message)||"Imeshindikana kutuma. Jaribu tena.");$("send").disabled=false;return}
+      try{localStorage.removeItem(KEY)}catch(x){}
+      location.reload();return;
+      var n=[$("fn").value,$("ln").value].join(" ").trim();
+      $("doneMsg").textContent="Maombi yako ya kujiunga DERSANE yamekusanywa. Tembelea akaunti yako ya maombi mara kwa mara kuona hali ya maombi.";
+      form.hidden=true;document.querySelector(".mobbar").hidden=true;$("rail").parentNode.hidden=true;$("done").hidden=false;$("top").hidden=true;var L=document.querySelector(".layout");L.style.gridTemplateColumns="minmax(0,1fr)";L.style.paddingTop="28px";
+      window.scrollTo({top:0});
+    });
+  });
+  $("copy").addEventListener("click",function(){
+    var b=$("copy"),t=summaryText();
+    function ok(){b.textContent="Imenakiliwa"}
+    try{navigator.clipboard.writeText(t).then(ok,function(){b.textContent="Nakili haikufanya kazi"})}catch(x){b.textContent="Nakili haikufanya kazi"}
+  });
+
+  /* draft in this browser (files are not stored) */
+  function save(){
+    try{
+      var d={};
+      [].forEach.call(form.elements,function(el){
+        if(!el.name||el.type==="file"||el.type==="submit"||el.type==="button")return;
+        if(el.type==="radio"){if(el.checked)d[el.name]=el.value}
+        else if(el.type==="checkbox")d[el.name]=el.checked;
+        else d[el.name]=el.value;
+      });
+      localStorage.setItem(KEY,JSON.stringify({d:d,step:cur,max:maxReached}));
+    }catch(x){}
+  }
+  function restore(){
+    try{
+      var s=JSON.parse(localStorage.getItem(KEY)||"null");if(!s)return 0;
+      var d=s.d;
+      var lv=d.lvl;if(lv){var r=form.querySelector('input[name=lvl][value='+lv+']');if(r)r.checked=true}
+      [].forEach.call(form.elements,function(el){
+        if(!el.name||!(el.name in d)||el.type==="file")return;
+        if(el.type==="radio")el.checked=d[el.name]===el.value;
+        else if(el.type==="checkbox")el.checked=!!d[el.name];
+        else el.value=d[el.name];
+      });
+      syncSN();
+      maxReached=Math.min(s.max||0,4);
+      return Math.min(s.step||0,4);
+    }catch(x){return 0}
+  }
+  function E(x){return String(x==null?"":x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  var T=$("st");
+  function ready(){document.documentElement.className="ready"}
+  function view(j){
+    if(j&&!j.ok&&!j.redirect){alert(j.message||"Hitilafu ya seva.");ready();return}
+    if(!j||!j.ok||!j.user){location.href="Neon_Orbit_Login.html";return}
+    if(j.user.role==="admin"){location.href="Admissions-admin-dashboard.html";return}
+    var a=j.application;
+    if(!a){ready();return}
+    if(a.status==="admitted"){location.href="admission-user-dashboard.html";return}
+    var rej=a.status==="rejected";
+    $("lay").hidden=true;$("top").hidden=true;T.hidden=false;
+    T.innerHTML='<div class="tick" aria-hidden="true" style="background:'+(rej?'var(--err)':'var(--mark);color:#10211f')+'">'+(rej?'\u2715':'\u2026')+'</div>'+
+      '<h2>'+(rej?'Maombi hayakukubaliwa':'Application Submitted Successfully!')+'</h2>'+
+      '<p class="lead">'+(rej?'Samahani, maombi yako ya tarehe '+E(a.submitted)+' hayakukubaliwa.':'Your application has been submitted successfully. Please wait while Dersane reviews your application. You can log in to your account to check your application status and receive updates regarding your admission.')+'</p>'+
+      (rej?'<div class="note"><b>Sababu:</b> '+E(a.reason)+'</div>':'')+
+      '<p class="hint" style="margin-top:18px">'+(rej?'Hali: <b>IMEKATALIWA</b>':'Application Status: <b>Submitted</b>')+'</p>'+
+      '<div class="nav" style="justify-content:flex-start"><button class="btn" type="button" id="stRef">Onyesha hali mpya</button>'+(rej?'<button class="btn ghost" type="button" id="stAgain">Tuma maombi upya</button>':'')+'<a class="btn ghost" href="logout-admission-system.php" style="text-decoration:none;display:inline-block">Toka</a></div>';
+    ready();
+  }
+  function load(){fetch("me.php",{credentials:"same-origin"}).then(function(r){return r.json()}).then(view).catch(ready)}
+  T.addEventListener("click",function(e){
+    if(e.target.id==="stRef")load();
+    if(e.target.id==="stAgain"){T.hidden=true;$("lay").hidden=false;$("top").hidden=false;show(0)}
+  });
+  setInterval(function(){if(!T.hidden)load()},20000);
+  load();
+  show(restore());
+})();
+</script>
+
+</body></html>
